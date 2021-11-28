@@ -1,0 +1,23 @@
+﻿<Window x:Class="IM.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IM.Views"
+        mc:Ignorable="d"
+        Title="Inventory Management" Height="450" Width="800" Background="#222831">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <Button Content="Inventory" Command="{Binding UpdateViewCommand}" CommandParameter="Inventory" Margin="5" Background="#393E46" Foreground="#EEEEEE" BorderThickness="0"/>
+            <Button Content="Reports" Command="{Binding UpdateViewCommand}" CommandParameter="Report" Margin="5" Background="#393E46" Foreground="#EEEEEE" BorderThickness="0"/>
+            <Button Content="Settings" Command="{Binding UpdateViewCommand}" CommandParameter="Settings" Margin="5" Background="#393E46" Foreground="#EEEEEE" BorderThickness="0"/>
+        </StackPanel>
+
+        <ContentControl Grid.Column="1" Content="{Binding SelectedViewModel}" Background="#393E46"/>
+    </Grid>
+</Window>
