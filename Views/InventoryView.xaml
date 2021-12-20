@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:IM.Views"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:local1="clr-namespace:IM.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="#393E46">
+    <UserControl.DataContext>
+        <local1:InventoryViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <!--<DataGrid ItemsSource="{Binding Inventory, Mode=TwoWay}" Width="Auto"/>-->
         <Grid.RowDefinitions>
@@ -18,9 +22,51 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Content="{Binding UpdateMessage}" FontSize="18"/>
+            <Label Content="{Binding UpdateMessage}" FontSize="18" Foreground="#EEEEEE"/>
             <Button x:Name="SaveButton" Content="Save" IsEnabled="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveChanges}"/>
         </Grid>
-        <telerik:RadGridView ItemsSource="{Binding UI_Inventory}" Margin="10" Grid.Row="1"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <!--FORMFACTOR-->
+                <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
+                    <Label Content="Form&#x0a;Factors:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="50" />
+                    <ListBox ItemsSource="{Binding ActiveFilter}" MaxHeight="50" Width="80" Margin="5 0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <!--BRAND-->
+                <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
+                    <Label Content="Brand:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="50" />
+                    <ListBox ItemsSource="{Binding ActiveFilter}" MaxHeight="50" Width="80" Margin="5 0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <!--CAPACITY-->
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5">
+                    <Label Content="Capacity:" Foreground="#EEEEEE" FontSize="12" HorizontalContentAlignment="Center" Margin="-5"/>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Margin="5 0">
+                            <Label Content="Lower Cap" FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
+                            <TextBox Margin="5" />
+                        </StackPanel>
+                        <Label Content="-" VerticalAlignment="Center" FontSize="20" Foreground="#EEEEEE"/>
+                        <StackPanel HorizontalAlignment="Right" Orientation="Vertical" Margin="5 0">
+                            <Label Content="Lower Cap" FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
+                            <TextBox Margin="5"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+
+            </StackPanel>
+            <DataGrid MinWidth="600" Margin="10 5 0 0"/>
+        </StackPanel>
     </Grid>
 </UserControl>

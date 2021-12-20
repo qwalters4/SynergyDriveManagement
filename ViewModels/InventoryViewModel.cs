@@ -6,20 +6,24 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IM.Models;
 
 namespace IM.ViewModels
 {
     public class InventoryViewModel : BaseViewModel
     {
-        private ObservableCollection<InventoryItem> inventory;
+        private InventoryModel model;
         private ObservableCollection<InventoryItem> ui_inventory;
         private InventoryItem selectedItem;
-        private string updateMessage;
+        private List<string> possibleformfactors = new List<string>{ "2.5", "3.5", "M.2","test" };
+        private List<KeyValuePair<string, bool>> activeFormFactorFilter = new List<KeyValuePair<string, bool>>();
+        private string updateMessage = "Changes have been made, please save the results.";
         private bool saveRequired;
 
-        public ObservableCollection<InventoryItem> Inventory { get => inventory; set => inventory = value; }
         public ObservableCollection<InventoryItem> UI_Inventory { get => ui_inventory; set => ui_inventory = value; }
         public InventoryItem SelectedItem { get => selectedItem; set => selectedItem = value; }
+        public List<string> PossibleFormFactors { get => possibleformfactors; set => possibleformfactors = value; }
+        public List<KeyValuePair<string, bool>> ActiveFFFilter { get => activeFormFactorFilter; set => activeFormFactorFilter = value; }
         public bool SaveRequired
         {
             get => saveRequired;
@@ -37,11 +41,20 @@ namespace IM.ViewModels
 
         public InventoryViewModel()
         {
-            inventory = new ObservableCollection<InventoryItem>();
             ui_inventory = new ObservableCollection<InventoryItem>();
             testload();
             SetupChangeListeners();
             SetSaveRequired();
+
+            KeyValuePair<string, bool> a = new KeyValuePair<string, bool>("a", false);
+            KeyValuePair<string, bool> b = new KeyValuePair<string, bool>("b", false);
+            KeyValuePair<string, bool> c = new KeyValuePair<string, bool>("c", true);
+            KeyValuePair<string, bool> d = new KeyValuePair<string, bool>("d", false);
+
+            ActiveFFFilter.Add(a);
+            ActiveFFFilter.Add(b);
+            ActiveFFFilter.Add(c);
+            ActiveFFFilter.Add(d);
         }
 
         //public async task Refresh()
@@ -52,7 +65,7 @@ namespace IM.ViewModels
 
         public void testload()
         {
-            Inventory = new ObservableCollection<InventoryItem>();
+            UI_Inventory = new ObservableCollection<InventoryItem>();
 
             InventoryItem item1 = new InventoryItem();
             item1.ModelID = "first";
@@ -60,7 +73,6 @@ namespace IM.ViewModels
             item1.FormFactor = "2.5\"";
             item1.RotationRate = "7200rpm";
             item1.SectorSize = 512;
-            Inventory.Add(item1);
             UI_Inventory.Add(item1);
 
             InventoryItem item2 = new InventoryItem();
@@ -69,7 +81,6 @@ namespace IM.ViewModels
             item2.FormFactor = "2.5\"";
             item2.RotationRate = "5400rpm";
             item2.SectorSize = 512;
-            Inventory.Add(item2);
             UI_Inventory.Add(item2);
 
             InventoryItem item3 = new InventoryItem();
@@ -78,7 +89,6 @@ namespace IM.ViewModels
             item3.FormFactor = "2.5\"";
             item3.RotationRate = "7200rpm";
             item3.SectorSize = 520;
-            Inventory.Add(item3);
             UI_Inventory.Add(item3);
 
             InventoryItem item4 = new InventoryItem();
@@ -87,7 +97,6 @@ namespace IM.ViewModels
             item4.FormFactor = "2.5\"";
             item4.RotationRate = "7200rpm";
             item4.SectorSize = 512;
-            Inventory.Add(item4);
             UI_Inventory.Add(item4);
         }
 
