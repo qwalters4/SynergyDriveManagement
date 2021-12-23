@@ -15,12 +15,27 @@
         </Grid.RowDefinitions>
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="120"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Report output path: " Grid.Column="0" VerticalAlignment="Top" Foreground="#EEEEEE"/>
-            <TextBox Margin="4" Height="20" Grid.Column="1" VerticalAlignment="Top" Text="{Binding Outputpath, Mode=TwoWay}"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="10">
+                <Label Content="Report output path: " Grid.Column="0" VerticalAlignment="Top" Foreground="#EEEEEE"/>
+                <TextBox Margin="40 3 3 3" Height="20" Grid.Column="1" VerticalAlignment="Top" Text="{Binding Outputpath, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Margin="10" Orientation="Vertical">
+                <Label Content="Pull Sample Serial Numbers:" Foreground="#EEEEEE"/>
+                <StackPanel Orientation="Horizontal" Margin="40 3 3 3">
+                    <Label Content="PO Number" Foreground="#EEEEEE"/>
+                    <TextBox x:Name="PONumber" Width="40" Margin="3"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="40 3 3 3">
+                    <Label Content="Number of Serial Numbers" Foreground="#EEEEEE"/>
+                    <TextBox x:Name="SerialQuantity" Width="40" Margin="3"/>
+                    <Button Content="PULL" Margin="3" Padding="5 0" Background="SlateGray" Foreground="#EEEEEE"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

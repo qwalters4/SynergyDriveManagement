@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IM.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace IM.Models
 {
     class InventoryModel
     {
+        private DataService dataservice;
+
     }
 }

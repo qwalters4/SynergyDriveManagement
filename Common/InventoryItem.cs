@@ -9,22 +9,21 @@ namespace IM.Common
 {
     public class InventoryItem : DbObservableObject
     {
+        private string brand;
         private string model_id;
         private string disk_interface;
         private string form_factor;
-        private string rotation_rate;
-        private int sector_size;
-        private int po;
+        private int size;
 
-        public int PO
+        public string Brand
         {
             get
             {
-                return po;
+                return brand;
             }
             set
             {
-                if (Set(ref po, value))
+                if (Set(ref brand, value))
                 {
                     SetChanged();
                 }
@@ -73,29 +72,15 @@ namespace IM.Common
                 }
             }
         }
-        public string RotationRate
+        public int Capacity
         {
             get
             {
-                return rotation_rate;
+                return size;
             }
             set
             {
-                if (Set(ref rotation_rate, value))
-                {
-                    SetChanged();
-                }
-            }
-        }
-        public int SectorSize
-        {
-            get
-            {
-                return sector_size;
-            }
-            set
-            {
-                if (Set(ref sector_size, value))
+                if (Set(ref size, value))
                 {
                     SetChanged();
                 }

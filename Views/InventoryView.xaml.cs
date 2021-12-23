@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,15 @@ namespace IM.Views
     /// </summary>
     public partial class InventoryView : UserControl
     {
+        private InventoryViewModel viewModel { get { return (InventoryViewModel)DataContext; } }
         public InventoryView()
         {
             InitializeComponent();
+        }
+
+        private void WindowLoaded(object sender, RoutedEventArgs e)
+        {
+            viewModel.Load();
         }
     }
 }

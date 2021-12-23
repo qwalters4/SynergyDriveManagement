@@ -7,30 +7,41 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:local1="clr-namespace:IM.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="#393E46">
+             d:DesignHeight="450" d:DesignWidth="800" Background="#393E46"
+             Loaded="WindowLoaded">
     <UserControl.DataContext>
         <local1:InventoryViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <!--<DataGrid ItemsSource="{Binding Inventory, Mode=TwoWay}" Width="Auto"/>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Height="30">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Label Content="{Binding UpdateMessage}" FontSize="18" Foreground="#EEEEEE"/>
-            <Button x:Name="SaveButton" Content="Save" IsEnabled="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveChanges}"/>
+            <Label Content="{Binding UpdateMessage}" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" FontSize="16" Foreground="#EEEEEE" Grid.Column="0"/>
+            <Button x:Name="SaveButton" Content="Save" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveChanges}"/>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1">
             <StackPanel Orientation="Vertical">
                 <!--FORMFACTOR-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
-                    <Label Content="Form&#x0a;Factors:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="50" />
-                    <ListBox ItemsSource="{Binding ActiveFilter}" MaxHeight="50" Width="80" Margin="5 0">
+                    <Label Content="Form&#x0a;Factors:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
+                    <ListBox ItemsSource="{Binding ActiveFFFilter}" Height="60" Width="100" Margin="5 0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <!--Connector-->
+                <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
+                    <Label Content="Connector:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
+                    <ListBox ItemsSource="{Binding ActiveBrandFilter}" Height="60" Width="100" Margin="5 0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
@@ -40,8 +51,8 @@
                 </StackPanel>
                 <!--BRAND-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
-                    <Label Content="Brand:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="50" />
-                    <ListBox ItemsSource="{Binding ActiveFilter}" MaxHeight="50" Width="80" Margin="5 0">
+                    <Label Content="Brand:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
+                    <ListBox ItemsSource="{Binding ActiveBrandFilter}" Height="60" Width="100" Margin="5 0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
@@ -66,7 +77,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <DataGrid MinWidth="600" Margin="10 5 0 0"/>
+            <DataGrid MinWidth="600" Margin="10 5 0 0" ItemsSource="{Binding UI_Inventory}"/>
         </StackPanel>
     </Grid>
 </UserControl>

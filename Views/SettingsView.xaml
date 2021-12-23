@@ -21,7 +21,7 @@
         <Label Content="Theme: "/>
         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0">
             <Button Content="Dark" Margin="3"/>
-            <Button Content="Light"/>
+            <Button Content="Light" Margin="3"/>
         </StackPanel>
     </Grid>
 </UserControl>
