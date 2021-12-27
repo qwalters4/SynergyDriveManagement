@@ -13,6 +13,7 @@ namespace IM.ViewModels
     public class InventoryViewModel : BaseViewModel
     {
         private InventoryModel model;
+        private DataService dataService;
         private ObservableCollection<InventoryItem> ui_inventory;
         private InventoryItem selectedItem;
         private List<string> possibleformfactors;
@@ -51,11 +52,13 @@ namespace IM.ViewModels
 
         public void Load()
         {
+            dataService = new DataService();
             UI_Inventory = new ObservableCollection<InventoryItem>();
             PossibleFormFactors = new List<string>();
             testload();
             SetupChangeListeners();
             SetSaveRequired();
+            UI_Inventory = dataService.Query();
         }
 
         //public async task Refresh()

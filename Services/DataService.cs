@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using IM.Common;
 using Npgsql;
 
 namespace IM.Services
@@ -18,15 +20,23 @@ namespace IM.Services
             _connection.Open();
         }
 
-        public List<string> Query() 
+        public ObservableCollection<InventoryItem> Query() 
         {
             string query = "SELECT * FROM hdd";
-            List<string> list = new List<string>();
+            ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
+            InventoryItem item = new InventoryItem();
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
-                    list.Add((string) reader.GetValue(reader.GetOrdinal("connector")));
+                {
+                    item.DiskInterface = (string)reader.GetValue(reader.GetOrdinal("connector"));
+                    item.FormFactor = (string)reader.GetValue(reader.GetOrdinal("formfactor"));
+                    item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
+                    item.Brand = (string)reader.GetValue(reader.GetOrdinal("brand"));
+
+                    list.Add(item);
+                }
             }
             return list;
         }
