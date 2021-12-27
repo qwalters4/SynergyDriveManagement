@@ -20,7 +20,7 @@ namespace IM.Services
 
         public List<string> Query() 
         {
-            string query = "SELECT * FROM inventory";
+            string query = "SELECT * FROM hdd";
             List<string> list = new List<string>();
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
             using (var reader = cmd.ExecuteReader())
