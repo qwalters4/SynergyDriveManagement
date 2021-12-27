@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Npgsql;
 
 namespace IM.Services
 {
 
-    class DataService
+    public class DataService
     {
         private NpgsqlConnection _connection;
 
@@ -16,17 +15,17 @@ namespace IM.Services
         {
             _connection = new NpgsqlConnection();
             _connection.ConnectionString = "Host=192.168.1.229;Username=inventory;Password=whygod1234;Database=inventory";
-        
+            _connection.Open();
         }
 
         public List<string> Query() 
         {
             List<string> list = new List<string>();
-            NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM inventory", _connection);
+            NpgsqlCommand cmd = new NpgsqlCommand("SELECT * FROM hdd", _connection);
             using (var reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
-                    list.Add(reader.GetString(0));
+                    list.Add((string) reader.GetValue(reader.GetOrdinal("connector")));
             }
             return list;
         }
