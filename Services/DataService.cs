@@ -18,23 +18,10 @@ namespace IM.Services
             _connection = new NpgsqlConnection();
             _connection.ConnectionString = "Host=192.168.1.229;Username=inventory;Password=whygod1234;Database=inventory";
             _connection.Open();
-
-            //run query to get all brand names to pass to the interface
-            string brandquery = "SELECT brand FROM hdd";
-            NpgsqlCommand BrandQuery = new NpgsqlCommand(brandquery, _connection);
-            //read results from brandquery and add to brand list
-            using (var reader = BrandQuery.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-
-                }
-            }
         }
 
         public ObservableCollection<InventoryItem> Query() 
         {
-
             //basic format for sql query
             string query = "SELECT * FROM hdd";
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
@@ -71,6 +58,23 @@ namespace IM.Services
             }
             return list;
         }
-        
+        public ObservableCollection<string> BrandQuery()
+        {
+            ObservableCollection<string> list = new ObservableCollection<string>();
+            //run query to get all brand names to pass to the interface
+            string brandquery = "SELECT brand FROM hdd";
+            NpgsqlCommand BrandQuery = new NpgsqlCommand(brandquery, _connection);
+            //read results from brandquery and add to brand list
+            using (var reader = BrandQuery.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string temp;
+                    temp = (string)reader.GetValue(reader.GetOrdinal("brand"));
+                    list.Add(temp);
+                }
+            }
+            return list;
+        }
     }
 }
