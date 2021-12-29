@@ -58,9 +58,9 @@ namespace IM.Services
             }
             return list;
         }
-        public ObservableCollection<string> BrandQuery()
+        public List<string> BrandQuery()
         {
-            ObservableCollection<string> list = new ObservableCollection<string>();
+            List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
             string brandquery = "SELECT brand FROM hdd";
             NpgsqlCommand BrandQuery = new NpgsqlCommand(brandquery, _connection);
