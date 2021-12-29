@@ -11,5 +11,12 @@ namespace IM.Models
     {
         private DataService dataservice;
 
+        public DataService DataService { get => dataservice; set => dataservice = value; }
+
+        public List<KeyValuePair<string, bool>> GetBrandList()
+        {
+            
+        }
+
     }
 }

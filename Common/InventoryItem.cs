@@ -15,6 +15,16 @@ namespace IM.Common
         private string form_factor;
         private int size;
 
+        public InventoryItem()
+        {
+            ChangeType = DBChangeType.Insert;
+            Brand = "<Brand>";
+            ModelID = "<ModelID>";
+            DiskInterface = "<DiskInterface>";
+            FormFactor = "<FormFactor>";
+            Capacity = 0;
+        }
+
         public string Brand
         {
             get

@@ -13,7 +13,6 @@ namespace IM.ViewModels
     public class InventoryViewModel : BaseViewModel
     {
         private InventoryModel model;
-        private DataService dataService;
         private ObservableCollection<InventoryItem> ui_inventory;
         private InventoryItem selectedItem;
         private List<string> possibleformfactors;
@@ -31,7 +30,7 @@ namespace IM.ViewModels
                 OnPropertyChanged(nameof(UI_Inventory));
             }
         }
-    public InventoryItem SelectedItem { get => selectedItem; set => selectedItem = value; }
+        public InventoryItem SelectedItem { get => selectedItem; set => selectedItem = value; }
         public List<string> PossibleFormFactors { get => possibleformfactors; set => possibleformfactors = value; }
         public List<KeyValuePair<string, bool>> ActiveFFFilter { get => activeFormFactorFilter; set => activeFormFactorFilter = value; }
         public List<KeyValuePair<string, bool>> ActiveBrandFilter { get => activeBrandFilter; set => activeBrandFilter = value; }
@@ -52,20 +51,20 @@ namespace IM.ViewModels
 
         public void Load()
         {
-            dataService = new DataService();
+            model = new InventoryModel();
+            model.DataService = new DataService();
             UI_Inventory = new ObservableCollection<InventoryItem>();
             PossibleFormFactors = new List<string>();
-            testload();
             SetupChangeListeners();
             SetSaveRequired();
-            UI_Inventory = dataService.Query();
+            UI_Inventory = model.DataService.Query();
         }
 
-        //public async task Refresh()
-        //{
-        //    UI_Inventory = null;
+        public void Refresh()
+        {
+            UI_Inventory = model.DataService.Query();
 
-        //}
+        }
 
         public void testload()
         {

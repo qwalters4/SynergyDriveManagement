@@ -30,10 +30,12 @@ namespace IM.Services
             {
                 while (reader.Read())
                 {
+                    item = new InventoryItem();
                     item.DiskInterface = (string)reader.GetValue(reader.GetOrdinal("connector"));
                     item.FormFactor = (string)reader.GetValue(reader.GetOrdinal("formfactor"));
                     item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
                     item.Brand = (string)reader.GetValue(reader.GetOrdinal("brand"));
+                    item.ChangeType = DBChangeType.NoChange;
 
                     list.Add(item);
                 }
