@@ -31,5 +31,10 @@ namespace IM.Views
         {
             viewModel.Load();
         }
+
+        private void Filter_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.Refresh();
+        }
     }
 }

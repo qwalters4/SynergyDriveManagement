@@ -86,12 +86,16 @@ namespace IM.ViewModels
             SetSaveRequired();
             UI_Inventory = model.DataService.Query();
             ActiveBrandFilter = model.GetBrandList();
+            ActiveFFFilter = model.GetFFList();
+            ActiveConnectorFilter = model.GetConnectorList();
         }
 
         public void Refresh()
         {
             UI_Inventory = model.DataService.Query();
             ActiveBrandFilter = model.GetBrandList();
+            ActiveFFFilter = model.GetFFList();
+            ActiveConnectorFilter = model.GetConnectorList();
         }
 
         public void testload()

@@ -29,5 +29,35 @@ namespace IM.Models
             return o;
         }
 
+        public ObservableCollection<KeyValuePair<string, bool>> GetFFList()
+        {
+            List<string> temp = dataservice.FormFactorQuery();
+            ObservableCollection<KeyValuePair<string, bool>> o = new ObservableCollection<KeyValuePair<string, bool>>();
+            KeyValuePair<string, bool> t;
+
+            foreach (string s in temp)
+            {
+                t = new KeyValuePair<string, bool>(s, false);
+                o.Add(t);
+            }
+
+            return o;
+        }
+
+        public ObservableCollection<KeyValuePair<string, bool>> GetConnectorList()
+        {
+            List<string> temp = dataservice.ConnectorQuery();
+            ObservableCollection<KeyValuePair<string, bool>> o = new ObservableCollection<KeyValuePair<string, bool>>();
+            KeyValuePair<string, bool> t;
+
+            foreach (string s in temp)
+            {
+                t = new KeyValuePair<string, bool>(s, false);
+                o.Add(t);
+            }
+
+            return o;
+        }
+
     }
 }

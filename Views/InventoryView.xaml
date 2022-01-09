@@ -30,10 +30,10 @@
                 <!--FORMFACTOR-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Form&#x0a;Factors:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveFFFilter}" Height="60" Width="100" Margin="5 0">
+                    <ListBox ItemsSource="{Binding ActiveFFFilter}" Height="60" Width="100" Margin="5 0" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
+                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -74,6 +74,10 @@
                             <TextBox Margin="5"/>
                         </StackPanel>
                     </StackPanel>
+                </StackPanel>
+                <!--Filter-->
+                <StackPanel>
+                    <Button Content="Filter" Margin="10 10 0 10" Click="Filter_Click"/>
                 </StackPanel>
 
             </StackPanel>
