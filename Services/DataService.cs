@@ -78,5 +78,41 @@ namespace IM.Services
             }
             return list;
         }
+        public List<string> FormFactorQuery()
+        {
+            List<string> list = new List<string>();
+            //run query to get all brand names to pass to the interface
+            string formfactorquery = "SELECT formfactor FROM hdd";
+            NpgsqlCommand FormFactorQuery = new NpgsqlCommand(formfactorquery, _connection);
+            //read results from brandquery and add to brand list
+            using (var reader = FormFactorQuery.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string temp;
+                    temp = (string)reader.GetValue(reader.GetOrdinal("formfactor"));
+                    list.Add(temp);
+                }
+            }
+            return list;
+        }
+        public List<string> ConnectorQuery()
+        {
+            List<string> list = new List<string>();
+            //run query to get all brand names to pass to the interface
+            string connectorquery = "SELECT connector FROM hdd";
+            NpgsqlCommand ConnectorQuery = new NpgsqlCommand(connectorquery, _connection);
+            //read results from brandquery and add to brand list
+            using (var reader = ConnectorQuery.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    string temp;
+                    temp = (string)reader.GetValue(reader.GetOrdinal("connector"));
+                    list.Add(temp);
+                }
+            }
+            return list;
+        }
     }
 }
