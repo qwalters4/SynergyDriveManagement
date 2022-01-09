@@ -16,8 +16,10 @@ namespace IM.ViewModels
         private ObservableCollection<InventoryItem> ui_inventory;
         private InventoryItem selectedItem;
         private List<string> possibleformfactors;
-        private List<KeyValuePair<string, bool>> activeFormFactorFilter = new List<KeyValuePair<string, bool>>();
-        private List<KeyValuePair<string, bool>> activeBrandFilter = new List<KeyValuePair<string, bool>>();
+        private ObservableCollection<KeyValuePair<string, bool>> activeFormFactorFilter = new ObservableCollection<KeyValuePair<string, bool>>();
+        private ObservableCollection<KeyValuePair<string, bool>> activeBrandFilter = new ObservableCollection<KeyValuePair<string, bool>>();
+        private ObservableCollection<KeyValuePair<string, bool>> activeConnectorFilter = new ObservableCollection<KeyValuePair<string, bool>>();
+
         private string updateMessage = "Changes have been made, please save the results.";
         private bool saveRequired;
 
@@ -32,8 +34,33 @@ namespace IM.ViewModels
         }
         public InventoryItem SelectedItem { get => selectedItem; set => selectedItem = value; }
         public List<string> PossibleFormFactors { get => possibleformfactors; set => possibleformfactors = value; }
-        public List<KeyValuePair<string, bool>> ActiveFFFilter { get => activeFormFactorFilter; set => activeFormFactorFilter = value; }
-        public List<KeyValuePair<string, bool>> ActiveBrandFilter { get => activeBrandFilter; set => activeBrandFilter = value; }
+        public ObservableCollection<KeyValuePair<string, bool>> ActiveFFFilter
+        {
+            get => activeFormFactorFilter;
+            set
+            {
+                activeFormFactorFilter = value;
+                OnPropertyChanged(nameof(ActiveFFFilter));
+            }
+        }
+        public ObservableCollection<KeyValuePair<string, bool>> ActiveBrandFilter
+        {
+            get => activeBrandFilter;
+            set
+            {
+                activeBrandFilter = value;
+                OnPropertyChanged(nameof(ActiveBrandFilter));
+            }
+        }
+        public ObservableCollection<KeyValuePair<string, bool>> ActiveConnectorFilter
+        {
+            get => activeConnectorFilter;
+            set
+            {
+                activeConnectorFilter = value;
+                OnPropertyChanged(nameof(ActiveConnectorFilter));
+            }
+        }
         public bool SaveRequired
         {
             get => saveRequired;
@@ -58,12 +85,13 @@ namespace IM.ViewModels
             SetupChangeListeners();
             SetSaveRequired();
             UI_Inventory = model.DataService.Query();
+            ActiveBrandFilter = model.GetBrandList();
         }
 
         public void Refresh()
         {
             UI_Inventory = model.DataService.Query();
-
+            ActiveBrandFilter = model.GetBrandList();
         }
 
         public void testload()

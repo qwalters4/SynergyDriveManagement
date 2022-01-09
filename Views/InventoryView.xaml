@@ -41,7 +41,7 @@
                 <!--Connector-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Connector:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveBrandFilter}" Height="60" Width="100" Margin="5 0">
+                    <ListBox ItemsSource="{Binding ActiveConnectorFilter}" Height="60" Width="100" Margin="5 0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
