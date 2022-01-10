@@ -98,6 +98,32 @@ namespace IM.ViewModels
             ActiveConnectorFilter = model.GetConnectorList();
         }
 
+        public void Filter()
+        {
+            List<string> ff = new List<string>(); 
+            foreach(KeyValuePair<string, bool> k in ActiveFFFilter)
+            {
+                if (k.Value == true)
+                    ff.Add(k.Key);
+            }
+
+            List<string> conn = new List<string>();
+            foreach (KeyValuePair<string, bool> k in ActiveConnectorFilter)
+            {
+                if (k.Value == true)
+                    conn.Add(k.Key);
+            }
+
+            List<string> brand = new List<string>();
+            foreach (KeyValuePair<string, bool> k in ActiveBrandFilter)
+            {
+                if (k.Value == true)
+                    ff.Add(k.Key);
+            }
+
+            UI_Inventory = model.DataService.Query(ff, conn, brand);
+        }
+
         public void testload()
         {
             KeyValuePair<string, bool> a = new KeyValuePair<string, bool>("a", false);
