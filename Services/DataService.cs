@@ -113,7 +113,7 @@ namespace IM.Services
         {
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
-            string brandquery = "SELECT brand FROM hdd";
+            string brandquery = "SELECT Distinct brand FROM hdd";
             NpgsqlCommand BrandQuery = new NpgsqlCommand(brandquery, _connection);
             //read results from brandquery and add to brand list
             using (var reader = BrandQuery.ExecuteReader())
@@ -131,7 +131,7 @@ namespace IM.Services
         {
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
-            string formfactorquery = "SELECT formfactor FROM hdd";
+            string formfactorquery = "SELECT Distinct formfactor FROM hdd";
             NpgsqlCommand FormFactorQuery = new NpgsqlCommand(formfactorquery, _connection);
             //read results from brandquery and add to brand list
             using (var reader = FormFactorQuery.ExecuteReader())
@@ -149,7 +149,7 @@ namespace IM.Services
         {
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
-            string connectorquery = "SELECT connector FROM hdd";
+            string connectorquery = "SELECT Distinct connector FROM hdd";
             NpgsqlCommand ConnectorQuery = new NpgsqlCommand(connectorquery, _connection);
             //read results from brandquery and add to brand list
             using (var reader = ConnectorQuery.ExecuteReader())
