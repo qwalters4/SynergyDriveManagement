@@ -26,14 +26,21 @@ namespace IM.Services
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
             InventoryItem item = new InventoryItem();
             bool where = false;
+            bool filter = false;
             //if brand filter is null then skip
             if (brand.Count != 0)
             {
                 where = true;
+                filter = true;
                 query += " WHERE";
                 foreach(string brandName in brand)
                 {
                     query += " brand='" + brandName + "' OR ";
+                }
+                if (where == true)
+                {
+                    query = query.Substring(0, (query.Length - 3));
+                    query += " AND ";
                 }
             }
             //if formfactor filter is null then skip
@@ -42,12 +49,17 @@ namespace IM.Services
                 if (where == false) {
                     query += " WHERE";
                     where = true;
+                    filter = true;
                 }
                 foreach(string s in ff)
                 {
                     query += " formfactor='" + s + "' OR ";
                 }
-
+                if (where == true)
+                {
+                    query = query.Substring(0, (query.Length - 3));
+                    query += " AND ";
+                }
             }
             //if capacity filter is null then skip
 
@@ -63,9 +75,11 @@ namespace IM.Services
                 {
                     query += " connector='" + s + "' OR ";
                 }
+                if (where == true)
+                    query = query.Substring(0, (query.Length - 3));
             }
-            if(where == true)
-                query = query.Substring(0, (query.Length - 3));
+            if (filter == true)
+                query = query.Substring(0, (query.Length - 4));
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
             //read results from query and add to item class
