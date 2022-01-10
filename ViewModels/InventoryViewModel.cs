@@ -189,7 +189,7 @@ namespace IM.ViewModels
                 {
                     if (String.IsNullOrEmpty(sp.ModelID))
                     {
-                        DialogService.ShowError("SuperProject is missing name. Please re-enter.");
+                        DialogService.ShowError("ModelID is missing. Please re-enter.");
                         return false;
                     }
                 }
