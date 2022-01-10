@@ -16,8 +16,10 @@ namespace IM.Services
         public DataService()
         {
             _connection = new NpgsqlConnection();
-            _connection.ConnectionString = "Host=192.168.1.229;Username=inventory;Password=whygod1234;Database=inventory";
+            _connection.ConnectionString = "Host=65.26.61.201;Username=inventory;Password=whygod1234;Database=inventory";
             _connection.Open();
+            //65.26.61.201 is the public ip
+            //192.168.1.229 is the local ip
         }
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand)
         {

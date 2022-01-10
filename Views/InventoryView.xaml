@@ -66,12 +66,12 @@
                     <StackPanel Orientation="Horizontal">
                         <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Margin="5 0">
                             <Label Content="Lower Cap" FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
-                            <TextBox Margin="5" />
+                            <TextBox Margin="5" x:Name="CapLow"/>
                         </StackPanel>
                         <Label Content="-" VerticalAlignment="Center" FontSize="20" Foreground="#EEEEEE"/>
                         <StackPanel HorizontalAlignment="Right" Orientation="Vertical" Margin="5 0">
                             <Label Content="Lower Cap" FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
-                            <TextBox Margin="5"/>
+                            <TextBox Margin="5" x:Name="CapHigh"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
@@ -81,7 +81,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <DataGrid MinWidth="600" Margin="10 5 0 0" ItemsSource="{Binding UI_Inventory}"/>
+            <DataGrid MinWidth="600" Margin="10 5 0 0" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged"/>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -32,11 +32,18 @@ namespace IM.Views
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             viewModel.Load();
+            //if (int.Parse(CapLow.Text) < 0 || CapLow.Text == "")
+                //CapLow.Text = "0";
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
             viewModel.Filter();
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            viewModel.SetSaveRequired();
         }
     }
 }

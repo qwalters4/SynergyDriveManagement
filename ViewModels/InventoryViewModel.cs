@@ -30,6 +30,7 @@ namespace IM.ViewModels
             {
                 ui_inventory = value;
                 OnPropertyChanged(nameof(UI_Inventory));
+                SetSaveRequired();
             }
         }
         public InventoryItem SelectedItem { get => selectedItem; set => selectedItem = value; }
@@ -223,8 +224,10 @@ namespace IM.ViewModels
             return true;
         }
 
-        private void SetSaveRequired()
+        public void SetSaveRequired()
         {
+            if (UI_Inventory == null)
+                return;
             bool saveRequired = false;
             foreach (InventoryItem sp in UI_Inventory)
             {
