@@ -100,7 +100,7 @@ namespace IM.ViewModels
 
         public void Filter()
         {
-            List<string> ff = new List<string>();
+            List<string> ff = new List<string>(); 
             foreach(KeyValuePair<string, bool> k in ActiveFFFilter)
             {
                 if (k.Value == true)
