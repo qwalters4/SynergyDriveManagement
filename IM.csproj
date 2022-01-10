@@ -160,6 +160,7 @@
     </ApplicationDefinition>
     <Compile Include="Common\DBObservableObject.cs" />
     <Compile Include="Common\Enumeration.cs" />
+    <Compile Include="Common\KVpair.cs" />
     <Compile Include="Common\UpdateViewCommand.cs" />
     <Compile Include="Models\InventoryModel.cs" />
     <Compile Include="Services\DataService.cs" />

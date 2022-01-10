@@ -34,7 +34,7 @@ namespace IM.Views
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.Refresh();
+            viewModel.Filter();
         }
     }
 }
