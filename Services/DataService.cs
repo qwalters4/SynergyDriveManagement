@@ -25,21 +25,44 @@ namespace IM.Services
             string query = "SELECT * FROM hdd";
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
             InventoryItem item = new InventoryItem();
-
-            //sum all of the filtering list together to see if we need to filter
-
-            //if the summed filter is empty run basic query
-
-            //if the filter is not null then run through each list and apply the correct filter
-
+            bool where = false;
             //if brand filter is null then skip
-
+            if (brand.Count != 0)
+            {
+                where = true;
+                query += "Where";
+                foreach(string brandName in brand)
+                {
+                    query += " brand = " + brandName + " AND ";
+                }
+            }
             //if formfactor filter is null then skip
+            if (ff.Count != 0)
+            {
+                if (where == false) {
+                    query += "Where"; 
+                }
+                foreach(string s in ff)
+                {
+                    query += " formfactor = " + s + " AND ";
+                }
 
+            }
             //if capacity filter is null then skip
 
             //if connector filter is null then skip
-
+            if (conn.Count != 0)
+            {
+                if (where == false)
+                {
+                    query += "Where";
+                }
+                foreach(string s in conn)
+                {
+                    query += " connector = " + s + " AND ";
+                }
+            }
+            query.Substring(0, (query.Length - 4));
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
             //read results from query and add to item class
@@ -66,20 +89,6 @@ namespace IM.Services
             string query = "SELECT * FROM hdd";
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
             InventoryItem item = new InventoryItem();
-
-            //sum all of the filtering list together to see if we need to filter
-
-            //if the summed filter is empty run basic query
-
-            //if the filter is not null then run through each list and apply the correct filter
-
-            //if brand filter is null then skip
-
-            //if formfactor filter is null then skip
-
-            //if capacity filter is null then skip
-
-            //if connector filter is null then skip
 
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
