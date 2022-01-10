@@ -30,21 +30,21 @@ namespace IM.Services
             if (brand.Count != 0)
             {
                 where = true;
-                query += " Where";
+                query += " WHERE";
                 foreach(string brandName in brand)
                 {
-                    query += " brand = '" + brandName + "' AND ";
+                    query += " brand='" + brandName + "' AND ";
                 }
             }
             //if formfactor filter is null then skip
             if (ff.Count != 0)
             {
                 if (where == false) {
-                    query += " Where"; 
+                    query += " WHERE"; 
                 }
                 foreach(string s in ff)
                 {
-                    query += " formfactor = '" + s + "' AND ";
+                    query += " formfactor='" + s + "' AND ";
                 }
 
             }
@@ -55,11 +55,11 @@ namespace IM.Services
             {
                 if (where == false)
                 {
-                    query += " Where";
+                    query += " WHERE";
                 }
                 foreach(string s in conn)
                 {
-                    query += " connector = '" + s + "' AND ";
+                    query += " connector='" + s + "' AND ";
                 }
             }
             query.Substring(0, (query.Length - 4));
