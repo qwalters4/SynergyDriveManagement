@@ -40,7 +40,8 @@ namespace IM.Services
             if (ff.Count != 0)
             {
                 if (where == false) {
-                    query += " WHERE"; 
+                    query += " WHERE";
+                    where = true;
                 }
                 foreach(string s in ff)
                 {
@@ -56,13 +57,15 @@ namespace IM.Services
                 if (where == false)
                 {
                     query += " WHERE";
+                    where = true;
                 }
                 foreach(string s in conn)
                 {
                     query += " connector='" + s + "' OR ";
                 }
             }
-            query.Substring(0, (query.Length - 4));
+            if(where == true)
+                query = query.Substring(0, (query.Length - 3));
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
             //read results from query and add to item class
