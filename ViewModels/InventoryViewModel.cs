@@ -118,7 +118,7 @@ namespace IM.ViewModels
             foreach (KVpair k in ActiveBrandFilter)
             {
                 if (k.test == true)
-                    ff.Add(k.Key);
+                    brand.Add(k.Key);
             }
 
             UI_Inventory = model.DataService.Query(ff, conn, brand);
