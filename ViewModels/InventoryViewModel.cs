@@ -16,9 +16,9 @@ namespace IM.ViewModels
         private ObservableCollection<InventoryItem> ui_inventory;
         private InventoryItem selectedItem;
         private List<string> possibleformfactors;
-        private ObservableCollection<KeyValuePair<string, bool>> activeFormFactorFilter = new ObservableCollection<KeyValuePair<string, bool>>();
-        private ObservableCollection<KeyValuePair<string, bool>> activeBrandFilter = new ObservableCollection<KeyValuePair<string, bool>>();
-        private ObservableCollection<KeyValuePair<string, bool>> activeConnectorFilter = new ObservableCollection<KeyValuePair<string, bool>>();
+        private ObservableCollection<KVpair> activeFormFactorFilter = new ObservableCollection<KVpair>();
+        private ObservableCollection<KVpair> activeBrandFilter = new ObservableCollection<KVpair>();
+        private ObservableCollection<KVpair> activeConnectorFilter = new ObservableCollection<KVpair>();
 
         private string updateMessage = "Changes have been made, please save the results.";
         private bool saveRequired;
@@ -34,7 +34,7 @@ namespace IM.ViewModels
         }
         public InventoryItem SelectedItem { get => selectedItem; set => selectedItem = value; }
         public List<string> PossibleFormFactors { get => possibleformfactors; set => possibleformfactors = value; }
-        public ObservableCollection<KeyValuePair<string, bool>> ActiveFFFilter
+        public ObservableCollection<KVpair> ActiveFFFilter
         {
             get => activeFormFactorFilter;
             set
@@ -43,7 +43,7 @@ namespace IM.ViewModels
                 OnPropertyChanged(nameof(ActiveFFFilter));
             }
         }
-        public ObservableCollection<KeyValuePair<string, bool>> ActiveBrandFilter
+        public ObservableCollection<KVpair> ActiveBrandFilter
         {
             get => activeBrandFilter;
             set
@@ -52,7 +52,7 @@ namespace IM.ViewModels
                 OnPropertyChanged(nameof(ActiveBrandFilter));
             }
         }
-        public ObservableCollection<KeyValuePair<string, bool>> ActiveConnectorFilter
+        public ObservableCollection<KVpair> ActiveConnectorFilter
         {
             get => activeConnectorFilter;
             set
@@ -100,24 +100,24 @@ namespace IM.ViewModels
 
         public void Filter()
         {
-            List<string> ff = new List<string>(); 
-            foreach(KeyValuePair<string, bool> k in ActiveFFFilter)
+            List<string> ff = new List<string>();
+            foreach(KVpair k in ActiveFFFilter)
             {
-                if (k.Value == true)
+                if (k.test == true)
                     ff.Add(k.Key);
             }
 
             List<string> conn = new List<string>();
-            foreach (KeyValuePair<string, bool> k in ActiveConnectorFilter)
+            foreach (KVpair k in ActiveConnectorFilter)
             {
-                if (k.Value == true)
+                if (k.test == true)
                     conn.Add(k.Key);
             }
 
             List<string> brand = new List<string>();
-            foreach (KeyValuePair<string, bool> k in ActiveBrandFilter)
+            foreach (KVpair k in ActiveBrandFilter)
             {
-                if (k.Value == true)
+                if (k.test == true)
                     ff.Add(k.Key);
             }
 
@@ -126,10 +126,10 @@ namespace IM.ViewModels
 
         public void testload()
         {
-            KeyValuePair<string, bool> a = new KeyValuePair<string, bool>("a", false);
-            KeyValuePair<string, bool> b = new KeyValuePair<string, bool>("b", false);
-            KeyValuePair<string, bool> c = new KeyValuePair<string, bool>("c", true);
-            KeyValuePair<string, bool> d = new KeyValuePair<string, bool>("d", false);
+            KVpair a = new KVpair("a", false);
+            KVpair b = new KVpair("b", false);
+            KVpair c = new KVpair("c", true);
+            KVpair d = new KVpair("d", false);
 
             ActiveFFFilter.Add(a);
             ActiveFFFilter.Add(b);
