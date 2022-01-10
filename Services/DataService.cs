@@ -76,6 +76,7 @@ namespace IM.Services
                     query += " connector='" + s + "' OR ";
                 }
                 if (where == true)
+                    filter = false;
                     query = query.Substring(0, (query.Length - 3));
             }
             if (filter == true)

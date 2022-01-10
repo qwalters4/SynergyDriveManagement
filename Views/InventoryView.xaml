@@ -62,7 +62,7 @@
                 </StackPanel>
                 <!--CAPACITY-->
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5">
-                    <Label Content="Capacity:" Foreground="#EEEEEE" FontSize="12" HorizontalContentAlignment="Center" Margin="-5"/>
+                    <Label Content="Capacity(GB):" Foreground="#EEEEEE" FontSize="12" HorizontalContentAlignment="Center" Margin="-5"/>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Margin="5 0">
                             <Label Content="Lower Cap" FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
