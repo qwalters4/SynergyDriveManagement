@@ -8,10 +8,16 @@ using System.Threading.Tasks;
 
 namespace IM.Common
 {
-    class KVpair : INotifyPropertyChanged
+    public class KVpair : INotifyPropertyChanged
     {
         private string key;
         private bool value;
+
+        public KVpair(string s, bool v)
+        {
+            key = s;
+            value = v;
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -35,7 +41,7 @@ namespace IM.Common
                 NotifyPropertyChanged();
             }
         }
-        public bool Value
+        public bool test
         {
             get => value;
             set
@@ -43,6 +49,11 @@ namespace IM.Common
                 this.value = value;
                 NotifyPropertyChanged();
             }
+        }
+
+        override public string ToString()
+        {
+            return "{" + key + "," + value + "}";
         }
     }
 }

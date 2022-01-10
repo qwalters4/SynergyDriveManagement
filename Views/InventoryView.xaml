@@ -30,10 +30,10 @@
                 <!--FORMFACTOR-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Form&#x0a;Factors:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveFFFilter}" Height="60" Width="100" Margin="5 0" >
+                    <ListBox ItemsSource="{Binding ActiveFFFilter}" Height="60" Width="100" Margin="5 0" x:Name="FFlistbox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}" />
+                                <CheckBox  Content="{Binding Key, Mode=TwoWay}" IsChecked="{Binding test, Mode=TwoWay}" />
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -41,10 +41,10 @@
                 <!--Connector-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Connector:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveConnectorFilter}" Height="60" Width="100" Margin="5 0">
+                    <ListBox ItemsSource="{Binding ActiveConnectorFilter}" Height="60" Width="100" Margin="5 0" x:Name="Connlistbox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
+                                <CheckBox  Content="{Binding Key, Mode=TwoWay}" IsChecked="{Binding test, Mode=TwoWay}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -52,10 +52,10 @@
                 <!--BRAND-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Brand:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveBrandFilter}" Height="60" Width="100" Margin="5 0">
+                    <ListBox ItemsSource="{Binding ActiveBrandFilter}" Height="60" Width="100" Margin="5 0" x:Name="Brandlistbox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox  Content="{Binding Key, Mode=OneWay}" IsChecked="{Binding Value, Mode=OneWay}"/>
+                                <CheckBox  Content="{Binding Key, Mode=TwoWay}" IsChecked="{Binding test, Mode=TwoWay}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
