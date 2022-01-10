@@ -33,19 +33,18 @@ namespace IM.Services
                 query += " WHERE";
                 foreach(string brandName in brand)
                 {
-                    query += " brand='" + brandName + "' AND ";
+                    query += " brand='" + brandName + "' OR ";
                 }
             }
             //if formfactor filter is null then skip
             if (ff.Count != 0)
             {
                 if (where == false) {
-                    query += " WHERE";
-                    where = true;
+                    query += " WHERE"; 
                 }
                 foreach(string s in ff)
                 {
-                    query += " formfactor='" + s + "' AND ";
+                    query += " formfactor='" + s + "' OR ";
                 }
 
             }
@@ -57,15 +56,13 @@ namespace IM.Services
                 if (where == false)
                 {
                     query += " WHERE";
-                    where = true;
                 }
                 foreach(string s in conn)
                 {
-                    query += " connector='" + s + "' AND ";
+                    query += " connector='" + s + "' OR ";
                 }
             }
-            if (where == true)
-                query = query.Substring(0, (query.Length - 4));
+            query.Substring(0, (query.Length - 4));
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
             //read results from query and add to item class
