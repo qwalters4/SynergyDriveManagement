@@ -19,6 +19,11 @@ namespace IM.Services
             _connection.ConnectionString = "Host=192.168.1.229;Username=inventory;Password=whygod1234;Database=inventory";
             _connection.Open();
         }
+        public bool InsertFailsafe(List<InventoryItem> incoming)
+        {
+            string Query = "INSERT INTO hdd (brand, modelid, connector, formfactor, quantity, capacity, )";
+            return false;
+        }
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand)
         {
             //basic format for sql query
@@ -26,12 +31,12 @@ namespace IM.Services
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
             InventoryItem item = new InventoryItem();
             bool where = false;
-            bool filter = false;
+            bool deleteAND = false;
             //if brand filter is null then skip
             if (brand.Count != 0)
             {
                 where = true;
-                filter = true;
+                deleteAND = true;
                 query += " WHERE";
                 foreach(string brandName in brand)
                 {
@@ -49,7 +54,7 @@ namespace IM.Services
                 if (where == false) {
                     query += " WHERE";
                     where = true;
-                    filter = true;
+                    deleteAND = true;
                 }
                 foreach(string s in ff)
                 {
@@ -76,11 +81,13 @@ namespace IM.Services
                     query += " connector='" + s + "' OR ";
                 }
                 if (where == true)
-                    filter = false;
+                    deleteAND = false;
                     query = query.Substring(0, (query.Length - 3));
             }
-            if (filter == true)
+            if (deleteAND == true)
                 query = query.Substring(0, (query.Length - 4));
+            //filter 0 quantity items out by default
+            query += " AND quantity != 0";
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
             //read results from query and add to item class
