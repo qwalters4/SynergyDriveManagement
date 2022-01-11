@@ -23,7 +23,14 @@ namespace IM.Services
         }
         public bool InsertFailsafe(List<InventoryItem> incoming)
         {
-            string Query = "INSERT INTO hdd (brand, modelid, connector, formfactor, quantity, capacity, )";
+            foreach (InventoryItem item in incoming)
+            {
+                string Query = "INSERT INTO hdd (brand, modelid, connector, formfactor, quantity, capacity, ) ON DUPLICATE KEY UPDATE modelid=modelid";
+                Query += "Values (" + item.Brand + "," + item.ModelID + "," + item.DiskInterface + "," + item.FormFactor + "," + item.Quantity + "," + item.Capacity + ");";
+                NpgsqlCommand insert = new NpgsqlCommand(Query, _connection);
+                Query = "";
+
+            }
             return false;
         }
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand)
