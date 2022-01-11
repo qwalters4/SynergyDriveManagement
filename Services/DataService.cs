@@ -95,10 +95,16 @@ namespace IM.Services
             }
             if (deleteAND == true)
                 query = query.Substring(0, (query.Length - 4));
+
             //filter 0 quantity items out by default
-            query += " AND quantity != 0";
+            if(deleteAND == false)
+                query += " WHERE quantity != 0";
+            else
+                query += " AND quantity != 0";
+
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
+
             //read results from query and add to item class
             using (var reader = cmd.ExecuteReader())
             {
@@ -109,6 +115,7 @@ namespace IM.Services
                     item.FormFactor = (string)reader.GetValue(reader.GetOrdinal("formfactor"));
                     item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
                     item.Brand = (string)reader.GetValue(reader.GetOrdinal("brand"));
+                    item.Quantity = (int)reader.GetValue(reader.GetOrdinal("quantity"));
                     item.ChangeType = DBChangeType.NoChange;
 
                     list.Add(item);
@@ -136,6 +143,7 @@ namespace IM.Services
                     item.FormFactor = (string)reader.GetValue(reader.GetOrdinal("formfactor"));
                     item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
                     item.Brand = (string)reader.GetValue(reader.GetOrdinal("brand"));
+                    item.Quantity = (int)reader.GetValue(reader.GetOrdinal("quantity"));
                     item.ChangeType = DBChangeType.NoChange;
 
                     list.Add(item);

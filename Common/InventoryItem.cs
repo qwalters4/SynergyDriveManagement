@@ -14,6 +14,7 @@ namespace IM.Common
         private string disk_interface;
         private string form_factor;
         private int size;
+        private int quantity;
 
         public InventoryItem()
         {
@@ -97,6 +98,20 @@ namespace IM.Common
             }
         }
 
+        public int Quantity
+        {
+            get
+            {
+                return quantity;
+            }
+            set
+            {
+                if (Set(ref quantity, value))
+                {
+                    SetChanged();
+                }
+            }
+        }
 
     }
 }

@@ -7,7 +7,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:local1="clr-namespace:IM.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="#393E46"
+             d:DesignHeight="500" d:DesignWidth="800" Background="#393E46"
              Loaded="WindowLoaded">
     <UserControl.DataContext>
         <local1:InventoryViewModel/>
@@ -25,12 +25,12 @@
             <Label Content="{Binding UpdateMessage}" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" FontSize="16" Foreground="#EEEEEE" Grid.Column="0"/>
             <Button x:Name="SaveButton" Content="Save" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveChanges}"/>
         </Grid>
-        <StackPanel Orientation="Horizontal" Grid.Row="1">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 0 10 0">
             <StackPanel Orientation="Vertical">
                 <!--FORMFACTOR-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Form&#x0a;Factors:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveFFFilter}" Height="60" Width="100" Margin="5 0" x:Name="FFlistbox">
+                    <ListBox ItemsSource="{Binding ActiveFFFilter}" Height="100" Width="100" Margin="5 0" x:Name="FFlistbox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox  Content="{Binding Key, Mode=TwoWay}" IsChecked="{Binding test, Mode=TwoWay}" />
@@ -41,7 +41,7 @@
                 <!--Connector-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Connector:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveConnectorFilter}" Height="60" Width="100" Margin="5 0" x:Name="Connlistbox">
+                    <ListBox ItemsSource="{Binding ActiveConnectorFilter}" Height="100" Width="100" Margin="5 0" x:Name="Connlistbox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox  Content="{Binding Key, Mode=TwoWay}" IsChecked="{Binding test, Mode=TwoWay}"/>
@@ -52,7 +52,7 @@
                 <!--BRAND-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Brand:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
-                    <ListBox ItemsSource="{Binding ActiveBrandFilter}" Height="60" Width="100" Margin="5 0" x:Name="Brandlistbox">
+                    <ListBox ItemsSource="{Binding ActiveBrandFilter}" Height="100" Width="100" Margin="5 0" x:Name="Brandlistbox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox  Content="{Binding Key, Mode=TwoWay}" IsChecked="{Binding test, Mode=TwoWay}"/>
@@ -65,12 +65,12 @@
                     <Label Content="Capacity(GB):" Foreground="#EEEEEE" FontSize="12" HorizontalContentAlignment="Center" Margin="-5"/>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel HorizontalAlignment="Left" Orientation="Vertical" Margin="5 0">
-                            <Label Content="Lower Cap" FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
+                            <Label Content="Lowest Cap." FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
                             <TextBox Margin="5" x:Name="CapLow"/>
                         </StackPanel>
                         <Label Content="-" VerticalAlignment="Center" FontSize="20" Foreground="#EEEEEE"/>
                         <StackPanel HorizontalAlignment="Right" Orientation="Vertical" Margin="5 0">
-                            <Label Content="Lower Cap" FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
+                            <Label Content="Highest Cap." FontSize="10" Foreground="#EEEEEE" Margin="-5"/>
                             <TextBox Margin="5" x:Name="CapHigh"/>
                         </StackPanel>
                     </StackPanel>
@@ -81,7 +81,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <DataGrid MinWidth="600" Margin="10 5 0 0" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged"/>
+            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged"/>
         </StackPanel>
     </Grid>
 </UserControl>
