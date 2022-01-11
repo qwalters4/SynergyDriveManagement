@@ -25,8 +25,8 @@ namespace IM.Services
         {
             foreach (InventoryItem item in incoming)
             {
-                string Query = "INSERT INTO hdd (brand, modelid, connector, formfactor, quantity, capacity, ) ON DUPLICATE KEY UPDATE modelid=modelid";
-                Query += " Values ('" + item.Brand + "' , '" + item.ModelID + "' , '" + item.DiskInterface + "' , '" + item.FormFactor + "' , " + item.Quantity + " , " + item.Capacity + ");";
+                string Query = "insert into hdd (brand, modelid, connector, formfactor, quantity, capacity ) values('" + item.Brand + "', '" + item.ModelID + "', '" + item.DiskInterface + "', '" + item.FormFactor + "', " + item.Quantity + ", " + item.Capacity +")on conflict(modelid) do update set ";
+                Query += " brand = '" + item.Brand + "',connector = '" + item.DiskInterface + "',formfactor = '" + item.FormFactor + "',quantity = " + item.Quantity + ",capacity = " + item.Capacity + ";";
                 NpgsqlCommand insert = new NpgsqlCommand(Query, _connection);
                 Query = "";
 
