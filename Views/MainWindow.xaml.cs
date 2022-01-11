@@ -1,4 +1,5 @@
-﻿using IM.ViewModels;
+﻿using IM.Common;
+using IM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,13 @@ namespace IM.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private MainViewModel viewModel { get { return (MainViewModel)DataContext; } }
+
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
+            DataContext = viewModel;
         }
     }
 }

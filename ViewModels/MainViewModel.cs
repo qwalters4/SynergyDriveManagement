@@ -10,7 +10,7 @@ namespace IM.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private BaseViewModel _selectedviewmodel = new InventoryViewModel();
+        private BaseViewModel _selectedviewmodel = new BaseViewModel();
         public BaseViewModel SelectedViewModel
         {
             get
@@ -24,10 +24,13 @@ namespace IM.ViewModels
         }
 
         public ICommand UpdateViewCommand { get; set; }
+        public UpdateViewCommand UpdateView { get; set; }
 
         public MainViewModel()
         {
-            UpdateViewCommand = new UpdateViewCommand(this);
+            UpdateView = new UpdateViewCommand(this);
+            UpdateViewCommand = UpdateView;
+            UpdateViewCommand.Execute("Inventory");
         }
     }
 }

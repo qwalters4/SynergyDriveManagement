@@ -28,6 +28,7 @@ namespace IM.Services
                 string Query = "insert into hdd (brand, modelid, connector, formfactor, quantity, capacity ) values('" + item.Brand + "', '" + item.ModelID + "', '" + item.DiskInterface + "', '" + item.FormFactor + "', " + item.Quantity + ", " + item.Capacity +")on conflict(modelid) do update set ";
                 Query += " brand = '" + item.Brand + "',connector = '" + item.DiskInterface + "',formfactor = '" + item.FormFactor + "',quantity = " + item.Quantity + ",capacity = " + item.Capacity + ";";
                 NpgsqlCommand insert = new NpgsqlCommand(Query, _connection);
+                insert.ExecuteNonQuery();
                 Query = "";
 
             }
@@ -206,6 +207,11 @@ namespace IM.Services
                 }
             }
             return list;
+        }
+
+        public void CloseConnection()
+        {
+            _connection.Close();
         }
     }
 }

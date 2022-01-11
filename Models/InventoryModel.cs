@@ -65,5 +65,15 @@ namespace IM.Models
             dataservice.InsertFailsafe(incoming);
         }
 
+        public void UpdateRows(List<InventoryItem> incoming)
+        {
+            //dataservice.Update(incoming);
+        }
+
+        public void CloseConnection()
+        {
+            dataservice.CloseConnection();
+        }
+
     }
 }

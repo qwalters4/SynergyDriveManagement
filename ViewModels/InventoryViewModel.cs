@@ -235,6 +235,13 @@ namespace IM.ViewModels
                         outgoing.Add(i);
                 }
                 model.InsertRows(outgoing);
+                outgoing.Clear();
+                foreach(InventoryItem i in UI_Inventory)
+                {
+                    if (i.ChangeType == DBChangeType.Update)
+                        outgoing.Add(i);
+                }
+                //model.UpdateRows()
                 SaveRequired = false;
             }
             else
@@ -269,6 +276,11 @@ namespace IM.ViewModels
         {
             SaveRequired = true;
             SetUpdateMessage();
+        }
+
+        public void CloseConnection()
+        {
+            model.CloseConnection();
         }
     }
 }

@@ -15,9 +15,9 @@ namespace IM.Common
         private ReportViewModel reportViewModel;
         private SettingsViewModel settingsViewModel;
 
-        public UpdateViewCommand(MainViewModel viewModel)
+        public UpdateViewCommand(MainViewModel mainviewModel)
         {
-            this.viewModel = viewModel;
+            viewModel = mainviewModel;
             inventoryViewModel = new InventoryViewModel();
             reportViewModel = new ReportViewModel();
             settingsViewModel = new SettingsViewModel();

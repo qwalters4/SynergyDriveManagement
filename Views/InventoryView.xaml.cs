@@ -52,5 +52,10 @@ namespace IM.Views
         {
             viewModel.SaveData();
         }
+
+        private void UserControl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            viewModel.CloseConnection();
+        }
     }
 }
