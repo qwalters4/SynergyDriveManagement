@@ -36,7 +36,10 @@ namespace IM.Services
         {
             foreach (InventoryItem incomingItem in incoming)
             {
-                string update = "Update hdd set brand = " + incomingItem.Brand + " , modelid = " + incomingItem.ModelID + ", connector = " + incomingItem.DiskInterface + ", formfactor = " + incomingItem.FormFactor + ", quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + ", WHERE id = " + incomingItem.UniqueID + ";";
+                string updatestring = "Update hdd set brand = " + incomingItem.Brand + " , modelid = " + incomingItem.ModelID + ", connector = " + incomingItem.DiskInterface + ", formfactor = " + incomingItem.FormFactor + ", quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + ", WHERE id = " + incomingItem.UniqueID + ";";
+                NpgsqlCommand rowupdate = new NpgsqlCommand(updatestring, _connection);
+                rowupdate.ExecuteNonQuery();
+                updatestring = "";
             }
         }
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand)
