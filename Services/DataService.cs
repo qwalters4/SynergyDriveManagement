@@ -33,6 +33,14 @@ namespace IM.Services
 
             }
             return false;
+
+        }
+        public bool Update(List<InventoryItem> incoming)
+        {
+            foreach (InventoryItem incomingItem in incoming)
+            {
+                string update = "Update hdd set brand = " + incomingItem.Brand + " , modelid = " + incomingItem.ModelID + ", connector = " + incomingItem.DiskInterface + ", formfactor = " + incomingItem.FormFactor + ", quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + ", WHERE id = " + incomingItem.UniqueID + ";";
+            }
         }
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand)
         {
@@ -118,8 +126,8 @@ namespace IM.Services
                     item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
                     item.Brand = (string)reader.GetValue(reader.GetOrdinal("brand"));
                     item.Quantity = (int)reader.GetValue(reader.GetOrdinal("quantity"));
+                    item.UniqueID = (int)reader.GetValue(reader.GetOrdinal("id"));
                     item.ChangeType = DBChangeType.NoChange;
-
                     list.Add(item);
                 }
             }
@@ -147,6 +155,7 @@ namespace IM.Services
                     item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
                     item.Brand = (string)reader.GetValue(reader.GetOrdinal("brand"));
                     item.Quantity = (int)reader.GetValue(reader.GetOrdinal("quantity"));
+                    item.UniqueID = (int)reader.GetValue(reader.GetOrdinal("id"));
                     item.ChangeType = DBChangeType.NoChange;
 
                     list.Add(item);

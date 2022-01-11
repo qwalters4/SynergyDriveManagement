@@ -15,6 +15,7 @@ namespace IM.Common
         private string form_factor;
         private int size;
         private int quantity;
+        private int uniqueid;
 
         public InventoryItem()
         {
@@ -107,6 +108,20 @@ namespace IM.Common
             set
             {
                 if (Set(ref quantity, value))
+                {
+                    SetChanged();
+                }
+            }
+        }
+        public int UniqueID
+        {
+            get
+            {
+                return uniqueid;
+            }
+            set
+            {
+                if (Set(ref uniqueid, value))
                 {
                     SetChanged();
                 }
