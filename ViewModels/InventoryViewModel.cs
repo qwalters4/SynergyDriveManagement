@@ -241,7 +241,7 @@ namespace IM.ViewModels
                     if (i.ChangeType == DBChangeType.Update)
                         outgoing.Add(i);
                 }
-                //model.UpdateRows()
+                model.UpdateRows(outgoing);
                 SaveRequired = false;
             }
             else

@@ -21,7 +21,7 @@ namespace IM.Services
             //65.26.61.201 is the public ip
             //192.168.1.229 is the local ip
         }
-        public bool InsertFailsafe(List<InventoryItem> incoming)
+        public void InsertFailsafe(List<InventoryItem> incoming)
         {
             foreach (InventoryItem item in incoming)
             {
@@ -30,12 +30,9 @@ namespace IM.Services
                 NpgsqlCommand insert = new NpgsqlCommand(Query, _connection);
                 insert.ExecuteNonQuery();
                 Query = "";
-
             }
-            return false;
-
         }
-        public bool Update(List<InventoryItem> incoming)
+        public void Update(List<InventoryItem> incoming)
         {
             foreach (InventoryItem incomingItem in incoming)
             {

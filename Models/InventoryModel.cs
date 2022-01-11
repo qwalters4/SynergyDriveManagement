@@ -67,7 +67,7 @@ namespace IM.Models
 
         public void UpdateRows(List<InventoryItem> incoming)
         {
-            //dataservice.Update(incoming);
+            dataservice.Update(incoming);
         }
 
         public void CloseConnection()
