@@ -248,6 +248,7 @@ namespace IM.ViewModels
             {
                 UpdateMessage = "One or more entries is incorrect.";
             }
+            Refresh();
         }
 
         public void SetSaveRequired()

@@ -36,7 +36,7 @@ namespace IM.Services
         {
             foreach (InventoryItem incomingItem in incoming)
             {
-                string updatestring = "Update hdd set brand = " + incomingItem.Brand + " , modelid = " + incomingItem.ModelID + ", connector = " + incomingItem.DiskInterface + ", formfactor = " + incomingItem.FormFactor + ", quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + ", WHERE id = " + incomingItem.UniqueID + ";";
+                string updatestring = "Update hdd set brand = '" + incomingItem.Brand + "' , modelid = '" + incomingItem.ModelID + "', connector = '" + incomingItem.DiskInterface + "', formfactor = '" + incomingItem.FormFactor + "', quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + " WHERE id = " + incomingItem.UniqueID + ";";
                 NpgsqlCommand rowupdate = new NpgsqlCommand(updatestring, _connection);
                 rowupdate.ExecuteNonQuery();
                 updatestring = "";
@@ -106,7 +106,7 @@ namespace IM.Services
                 query = query.Substring(0, (query.Length - 4));
 
             //filter 0 quantity items out by default
-            if(deleteAND == false)
+            if (where == false)
                 query += " WHERE quantity != 0";
             else
                 query += " AND quantity != 0";
@@ -137,7 +137,7 @@ namespace IM.Services
         public ObservableCollection<InventoryItem> Query() 
         {
             //basic format for sql query
-            string query = "SELECT * FROM hdd";
+            string query = "SELECT * FROM hdd WHERE quantity != 0;";
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
             InventoryItem item = new InventoryItem();
 
