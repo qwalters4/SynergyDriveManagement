@@ -34,6 +34,8 @@ namespace IM.Views
             viewModel.Load();
             if (CapLow.Text == "" || int.Parse(CapLow.Text) < 0)
                 CapLow.Text = "0";
+            if (CapHigh.Text == "" || int.Parse(CapHigh.Text) < 0)
+                CapHigh.Text = "0";
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -44,6 +46,11 @@ namespace IM.Views
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             viewModel.SetSaveRequired();
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.SaveData();
         }
     }
 }

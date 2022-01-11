@@ -224,6 +224,25 @@ namespace IM.ViewModels
             return true;
         }
 
+        public void SaveData()
+        {
+            if(ChangesAreValid())
+            {
+                List<InventoryItem> outgoing = new List<InventoryItem>();
+                foreach(InventoryItem i in UI_Inventory)
+                {
+                    if(i.ChangeType == DBChangeType.Insert)
+                        outgoing.Add(i);
+                }
+                model.InsertRows(outgoing);
+                SaveRequired = false;
+            }
+            else
+            {
+                UpdateMessage = "One or more entries is incorrect.";
+            }
+        }
+
         public void SetSaveRequired()
         {
             if (UI_Inventory == null)
@@ -237,6 +256,7 @@ namespace IM.ViewModels
                 }
             }
             SaveRequired = saveRequired;
+            SetUpdateMessage();
         }
 
         private void Sp_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)

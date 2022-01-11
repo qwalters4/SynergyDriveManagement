@@ -60,5 +60,10 @@ namespace IM.Models
             return o;
         }
 
+        public void InsertRows(List<InventoryItem> incoming)
+        {
+            dataservice.InsertFailsafe(incoming);
+        }
+
     }
 }

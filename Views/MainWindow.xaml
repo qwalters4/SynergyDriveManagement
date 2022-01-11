@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IM.Views"
         xmlns:local1="clr-namespace:IM.ViewModels"
         mc:Ignorable="d"
-        Title="Inventory Management" Height="450" Width="800" Background="#222831">
+        Title="Inventory Management" Height="550" Width="850" Background="#222831">
     <Window.DataContext>
         <local1:MainViewModel/>
     </Window.DataContext>

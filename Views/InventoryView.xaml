@@ -7,7 +7,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:local1="clr-namespace:IM.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="800" Background="#393E46"
+             d:DesignHeight="500" d:DesignWidth="850" Background="#393E46"
              Loaded="WindowLoaded">
     <UserControl.DataContext>
         <local1:InventoryViewModel/>
@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Content="{Binding UpdateMessage}" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" FontSize="16" Foreground="#EEEEEE" Grid.Column="0"/>
-            <Button x:Name="SaveButton" Content="Save" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveChanges}"/>
+            <Button x:Name="SaveButton" Content="Save" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveChanges}" Click="SaveButton_Click"/>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 0 10 0">
             <StackPanel Orientation="Vertical">

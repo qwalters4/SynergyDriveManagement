@@ -26,7 +26,7 @@ namespace IM.Services
             foreach (InventoryItem item in incoming)
             {
                 string Query = "INSERT INTO hdd (brand, modelid, connector, formfactor, quantity, capacity, ) ON DUPLICATE KEY UPDATE modelid=modelid";
-                Query += "Values (" + item.Brand + "," + item.ModelID + "," + item.DiskInterface + "," + item.FormFactor + "," + item.Quantity + "," + item.Capacity + ");";
+                Query += " Values (" + item.Brand + "," + item.ModelID + "," + item.DiskInterface + "," + item.FormFactor + "," + item.Quantity + "," + item.Capacity + ");";
                 NpgsqlCommand insert = new NpgsqlCommand(Query, _connection);
                 Query = "";
 
@@ -111,6 +111,7 @@ namespace IM.Services
                 while (reader.Read())
                 {
                     item = new InventoryItem();
+                    item.ModelID = (string)reader.GetValue(reader.GetOrdinal("modelid"));
                     item.DiskInterface = (string)reader.GetValue(reader.GetOrdinal("connector"));
                     item.FormFactor = (string)reader.GetValue(reader.GetOrdinal("formfactor"));
                     item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
@@ -139,6 +140,7 @@ namespace IM.Services
                 while (reader.Read())
                 {
                     item = new InventoryItem();
+                    item.ModelID = (string)reader.GetValue(reader.GetOrdinal("modelid"));
                     item.DiskInterface = (string)reader.GetValue(reader.GetOrdinal("connector"));
                     item.FormFactor = (string)reader.GetValue(reader.GetOrdinal("formfactor"));
                     item.Capacity = (int)reader.GetValue(reader.GetOrdinal("capacity"));
