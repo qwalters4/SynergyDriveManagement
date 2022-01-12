@@ -42,7 +42,7 @@ namespace IM.Services
                 updatestring = "";
             }
         }
-        public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand)
+        public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand, int caplower, int capupper)
         {
             //basic format for sql query
             string query = "SELECT * FROM hdd";
@@ -84,8 +84,18 @@ namespace IM.Services
                     query += " AND ";
                 }
             }
-            //if capacity filter is null then skip
-
+            //add capacity filter
+            if (where == false)
+            {
+                query += " WHERE capacity BETWEEN" + caplower + " AND " + capupper + " AND ";
+                where=true;
+                deleteAND=true;
+            }
+            else
+            {
+                query += " AND capacity BETWEEN" + caplower + " AND " + capupper + " AND ";
+                deleteAND = true;
+            }
             //if connector filter is null then skip
             if (conn.Count != 0)
             {
