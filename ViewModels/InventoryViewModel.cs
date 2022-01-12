@@ -19,6 +19,8 @@ namespace IM.ViewModels
         private ObservableCollection<KVpair> activeFormFactorFilter = new ObservableCollection<KVpair>();
         private ObservableCollection<KVpair> activeBrandFilter = new ObservableCollection<KVpair>();
         private ObservableCollection<KVpair> activeConnectorFilter = new ObservableCollection<KVpair>();
+        private string caplowerstring;
+        private string capupperstring;
 
         private string updateMessage = "Changes have been made, please save the results.";
         private bool saveRequired;
@@ -77,6 +79,34 @@ namespace IM.ViewModels
             } 
         }
 
+        public string CapLowerString
+        {
+            get => caplowerstring;
+            set
+            {
+                int test;
+                if (int.TryParse(value.ToString(), out test))
+                    caplowerstring = value;
+                else
+                    caplowerstring = "0";
+                OnPropertyChanged(nameof(CapLowerString));
+            }
+        }
+
+        public string CapUpperString
+        {
+            get => caplowerstring;
+            set
+            {
+                int test;
+                if (int.TryParse(value.ToString(), out test))
+                    capupperstring = value;
+                else
+                    capupperstring = "0";
+                OnPropertyChanged(nameof(CapUpperString));
+            }
+        }
+
         public void Load()
         {
             model = new InventoryModel();
@@ -122,7 +152,8 @@ namespace IM.ViewModels
                     brand.Add(k.Key);
             }
 
-            UI_Inventory = model.DataService.Query(ff, conn, brand);
+
+            UI_Inventory = model.DataService.Query(ff, conn, brand, int.Parse(CapLowerString), int.Parse(CapUpperString));
         }
 
         public void testload()
