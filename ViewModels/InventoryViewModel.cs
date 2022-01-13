@@ -21,6 +21,7 @@ namespace IM.ViewModels
         private ObservableCollection<KVpair> activeConnectorFilter = new ObservableCollection<KVpair>();
         private string caplowerstring;
         private string capupperstring;
+        private bool quantitycheck;
 
         private string updateMessage = "Changes have been made, please save the results.";
         private bool saveRequired;
@@ -107,6 +108,16 @@ namespace IM.ViewModels
             }
         }
 
+        public bool QuantityCheck
+        {
+            get => quantitycheck;
+            set
+            {
+                quantitycheck = value;
+                OnPropertyChanged(nameof(QuantityCheck));
+            }
+        }
+
         public void Load()
         {
             model = new InventoryModel();
@@ -153,7 +164,7 @@ namespace IM.ViewModels
             }
 
 
-            UI_Inventory = model.DataService.Query(ff, conn, brand, int.Parse(CapLowerString), int.Parse(CapUpperString));
+            UI_Inventory = model.DataService.Query(ff, conn, brand, int.Parse(CapLowerString), int.Parse(CapUpperString), QuantityCheck);
         }
 
         public void testload()

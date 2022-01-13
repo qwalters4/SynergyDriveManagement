@@ -42,7 +42,7 @@ namespace IM.Services
                 updatestring = "";
             }
         }
-        public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand, int caplower, int capupper)
+        public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand, int caplower, int capupper, bool quantitycheck)
         {
             //basic format for sql query
             string query = "SELECT * FROM hdd";

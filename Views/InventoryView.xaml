@@ -61,6 +61,11 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </StackPanel>
+                <!--0 QUANTITY-->
+                <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
+                    <Label Content="Show Quantities = 0: " Foreground="#EEEEEE" FontSize="12"/>
+                    <CheckBox VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="{Binding QuantityCheck}"/>
+                </StackPanel>
                 <!--CAPACITY-->
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="5">
                     <Label Content="Capacity(GB):" Foreground="#EEEEEE" FontSize="12" HorizontalContentAlignment="Center" Margin="-5"/>
