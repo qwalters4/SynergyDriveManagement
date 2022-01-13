@@ -93,7 +93,7 @@ namespace IM.Services
             }
             else
             {
-                query += " AND capacity BETWEEN " + caplower + " AND " + capupper + " AND ";
+                query += " capacity BETWEEN " + caplower + " AND " + capupper + " AND ";
                 deleteAND = true;
             }
             //if connector filter is null then skip
