@@ -116,7 +116,7 @@ namespace IM.Services
                 query = query.Substring(0, (query.Length - 4));
 
             //filter 0 quantity items out by default
-            if (quantitycheck == true) { 
+            if (quantitycheck == false) { 
                 if (where == false)
                     query += " WHERE quantity != 0";
                 else
