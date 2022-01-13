@@ -45,75 +45,55 @@ namespace IM.Services
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand, int caplower, int capupper, bool quantitycheck)
         {
             //basic format for sql query
-            string query = "SELECT * FROM hdd";
+            string query = "select * from (select * from ( select * from(select *from(select * from hdd ) as quant where";
             List<InventoryItem> list = new List<InventoryItem>();
             InventoryItem item = new InventoryItem();
-            bool where = false;
-            bool deleteAND = false;
             //if brand filter is null then skip
             if (brand.Count != 0)
             {
-                where = true;
-                deleteAND = true;
-                query += " WHERE";
-                foreach(string brandName in brand)
+                foreach (string brandName in brand)
                 {
                     query += " brand='" + brandName + "' OR ";
                 }
-                if (where == true)
-                {
-                    query = query.Substring(0, (query.Length - 3));
-                    query += " AND ";
-                }
-            }
-            //if formfactor filter is null then skip
-            if (ff.Count != 0)
-            {
-                if (where == false) {
-                    query += " WHERE";
-                    where = true;
-                    deleteAND = true;
-                }
-                foreach(string s in ff)
-                {
-                    query += " formfactor='" + s + "' OR ";
-                }
-                if (where == true)
-                {
-                    query = query.Substring(0, (query.Length - 3));
-                    query += " AND ";
-                }
-            }
-            //add capacity filter
-            if (where == false)
-            {
-                query += " WHERE capacity BETWEEN " + caplower + " AND " + capupper + " AND ";
-                where=true;
-                deleteAND=true;
+                query = query.Substring(0, query.Length - 3);
+                query += ") as manu where";
             }
             else
             {
-                query += " capacity BETWEEN " + caplower + " AND " + capupper + " AND ";
-                deleteAND = true;
+                query += " brand = brand ) as manu where";
             }
             //if connector filter is null then skip
             if (conn.Count != 0)
             {
-                if (where == false)
-                {
-                    query += " WHERE";
-                    where = true;
-                }
-                foreach(string s in conn)
+                foreach (string s in conn)
                 {
                     query += " connector='" + s + "' OR ";
                 }
-                if (where == true)
-                    deleteAND = false;
-                    query = query.Substring(0, (query.Length - 3));
+                query = query.Substring(0, query.Length - 3);
+                query += ") as con where";
             }
-            if (deleteAND == true)
-                query = query.Substring(0, (query.Length - 4));
+            else
+            {
+                query += " connector = connector ) as con where";
+            }
+            //add capacity filter
+
+            query += " capacity BETWEEN " + caplower + " AND " + capupper + " AND ";
+
+            //if formfactor filter is null then skip
+            if (ff.Count != 0)
+                {
+                    foreach(string s in ff)
+                {
+                    query += " formfactor='" + s + "' OR ";
+                }
+                    query = query.Substring(0, query.Length - 3);
+                    query += ") as ff;";
+                }
+            else 
+                { 
+                query += " formfactor = formfactor) as ff;";
+                }
 
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
