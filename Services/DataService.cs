@@ -118,7 +118,7 @@ namespace IM.Services
 
             //Filter list by quantity of 0
             if (!quantitycheck)
-                list.RemoveAll(x => x.Quantity == 0);
+                list = list.AsParallel().Where(x => x.Quantity != 0).ToList();
 
             ObservableCollection<InventoryItem> outgoing = new ObservableCollection<InventoryItem>(list);
 

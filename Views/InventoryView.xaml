@@ -87,7 +87,17 @@
                 </StackPanel>
 
             </StackPanel>
-            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged" />
+            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Brand" Binding="{Binding Brand}"/>
+                    <DataGridTextColumn Header="Form Factor" Binding="{Binding FormFactor}"/>
+                    <DataGridTextColumn Header="Connector" Binding="{Binding DiskInterface}"/>
+                    <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}"/>
+                    <DataGridTextColumn Header="Model ID" Binding="{Binding ModelID}"/>
+                    <DataGridTextColumn Header="Quantiy" Binding="{Binding Quantity}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </UserControl>
