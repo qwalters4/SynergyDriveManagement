@@ -116,11 +116,12 @@ namespace IM.Services
                 query = query.Substring(0, (query.Length - 4));
 
             //filter 0 quantity items out by default
-            if (where == false)
-                query += " WHERE quantity != 0";
-            else
-                query += " AND quantity != 0";
-
+            if (quantitycheck == true) { 
+                if (where == false)
+                    query += " WHERE quantity != 0";
+                else
+                    query += " AND quantity != 0";
+             }
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
 
