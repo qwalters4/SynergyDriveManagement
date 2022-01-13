@@ -46,7 +46,7 @@ namespace IM.Services
         {
             //basic format for sql query
             string query = "SELECT * FROM hdd";
-            ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
+            List<InventoryItem> list = new List<InventoryItem>();
             InventoryItem item = new InventoryItem();
             bool where = false;
             bool deleteAND = false;
@@ -115,14 +115,6 @@ namespace IM.Services
             if (deleteAND == true)
                 query = query.Substring(0, (query.Length - 4));
 
-            //filter 0 quantity items out by default
-            if (quantitycheck == false)
-            {
-                if (where == false)
-                    query += " WHERE quantity != 0";
-                else
-                    query += " AND quantity != 0";
-             }
             //execute sql query with the given connection
             NpgsqlCommand cmd = new NpgsqlCommand(query, _connection);
 
@@ -143,7 +135,14 @@ namespace IM.Services
                     list.Add(item);
                 }
             }
-            return list;
+
+            //Filter list by quantity of 0
+            if (!quantitycheck)
+                list.RemoveAll(x => x.Quantity == 0);
+
+            ObservableCollection<InventoryItem> outgoing = new ObservableCollection<InventoryItem>(list);
+
+            return outgoing;
         }
 
         public ObservableCollection<InventoryItem> Query() 

@@ -87,7 +87,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged"/>
+            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged" />
         </StackPanel>
     </Grid>
 </UserControl>
