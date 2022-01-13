@@ -95,14 +95,14 @@ namespace IM.ViewModels
 
         public string CapUpperString
         {
-            get => caplowerstring;
+            get => capupperstring;
             set
             {
                 int test;
                 if (int.TryParse(value.ToString(), out test))
                     capupperstring = value;
                 else
-                    capupperstring = "0";
+                    capupperstring = "20000";
                 OnPropertyChanged(nameof(CapUpperString));
             }
         }

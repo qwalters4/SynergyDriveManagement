@@ -87,13 +87,13 @@ namespace IM.Services
             //add capacity filter
             if (where == false)
             {
-                query += " WHERE capacity BETWEEN" + caplower + " AND " + capupper + " AND ";
+                query += " WHERE capacity BETWEEN " + caplower + " AND " + capupper + " AND ";
                 where=true;
                 deleteAND=true;
             }
             else
             {
-                query += " AND capacity BETWEEN" + caplower + " AND " + capupper + " AND ";
+                query += " AND capacity BETWEEN " + caplower + " AND " + capupper + " AND ";
                 deleteAND = true;
             }
             //if connector filter is null then skip
