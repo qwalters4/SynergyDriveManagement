@@ -13,12 +13,14 @@ namespace IM.ViewModels
     public class InventoryViewModel : BaseViewModel
     {
         private InventoryModel model;
-        private ObservableCollection<InventoryItem> ui_inventory;
+        private ObservableCollection<InventoryItem> ui_searchResults;
+        private ObservableCollection<InventoryItem> inventory;
         private InventoryItem selectedItem;
         private List<string> possibleformfactors;
         private ObservableCollection<KVpair> activeFormFactorFilter = new ObservableCollection<KVpair>();
         private ObservableCollection<KVpair> activeBrandFilter = new ObservableCollection<KVpair>();
         private ObservableCollection<KVpair> activeConnectorFilter = new ObservableCollection<KVpair>();
+        private string searchcriteria;
         private string caplowerstring;
         private string capupperstring;
         private bool quantitycheck;
@@ -26,14 +28,23 @@ namespace IM.ViewModels
         private string updateMessage = "Changes have been made, please save the results.";
         private bool saveRequired;
 
-        public ObservableCollection<InventoryItem> UI_Inventory
+        public ObservableCollection<InventoryItem> SearchResults
         {
-            get => ui_inventory;
+            get => ui_searchResults;
             set
             {
-                ui_inventory = value;
-                OnPropertyChanged(nameof(UI_Inventory));
+                ui_searchResults = value;
+                OnPropertyChanged(nameof(SearchResults));
                 SetSaveRequired();
+            }
+        }
+        public string SearchCriteria
+        {
+            get => searchcriteria;
+            set
+            {
+                searchcriteria = value;
+                OnPropertyChanged(nameof(SearchCriteria));
             }
         }
         public InventoryItem SelectedItem { get => selectedItem; set => selectedItem = value; }
@@ -69,6 +80,10 @@ namespace IM.ViewModels
         {
             get => saveRequired;
             set { saveRequired = value; OnPropertyChanged(nameof(SaveRequired)); }
+        }
+        public bool FilterActive
+        {
+            get => !saveRequired;
         }
         public string UpdateMessage
         { 
@@ -120,24 +135,49 @@ namespace IM.ViewModels
 
         public void Load()
         {
+            searchcriteria = "";
             model = new InventoryModel();
             model.DataService = new DataService();
-            UI_Inventory = new ObservableCollection<InventoryItem>();
+            inventory = new ObservableCollection<InventoryItem>();
+            ui_searchResults = new ObservableCollection<InventoryItem>();
             PossibleFormFactors = new List<string>();
             SetupChangeListeners();
             SetSaveRequired();
-            UI_Inventory = model.DataService.Query();
+            inventory = model.DataService.Query();
             ActiveBrandFilter = model.GetBrandList();
             ActiveFFFilter = model.GetFFList();
             ActiveConnectorFilter = model.GetConnectorList();
+            UpdateResults();
+        }
+
+        internal void UpdateResults()
+        {
+            SearchResults.Clear();
+            if (SearchCriteria == "")
+            {
+                
+                foreach (InventoryItem c in inventory)
+                {
+                    SearchResults.Add(c);
+                }
+                SaveRequired = false;
+                return;
+            }
+            foreach (InventoryItem c in inventory)
+            {
+                if (c.ModelID.IndexOf(SearchCriteria, StringComparison.OrdinalIgnoreCase) >= 0)
+                    SearchResults.Add(c);
+                SaveRequired = false;
+            }
         }
 
         public void Refresh()
         {
-            UI_Inventory = model.DataService.Query();
+            inventory = model.DataService.Query();
             ActiveBrandFilter = model.GetBrandList();
             ActiveFFFilter = model.GetFFList();
             ActiveConnectorFilter = model.GetConnectorList();
+            UpdateResults();
         }
 
         public void Filter()
@@ -164,7 +204,8 @@ namespace IM.ViewModels
             }
 
 
-            UI_Inventory = model.DataService.Query(ff, conn, brand, int.Parse(CapLowerString), int.Parse(CapUpperString), QuantityCheck);
+            inventory = model.DataService.Query(ff, conn, brand, int.Parse(CapLowerString), int.Parse(CapUpperString), QuantityCheck);
+            UpdateResults();
         }
 
         public void testload()
@@ -189,7 +230,7 @@ namespace IM.ViewModels
             item1.FormFactor = "2.5\"";
             item1.Capacity = 512;
             item1.ChangeType = DBChangeType.NoChange;
-            UI_Inventory.Add(item1);
+            inventory.Add(item1);
 
             InventoryItem item2 = new InventoryItem();
             item2.ModelID = "second";
@@ -197,7 +238,7 @@ namespace IM.ViewModels
             item2.FormFactor = "2.5\"";
             item2.Capacity = 512;
             item2.ChangeType = DBChangeType.NoChange;
-            UI_Inventory.Add(item2);
+            inventory.Add(item2);
 
             InventoryItem item3 = new InventoryItem();
             item3.ModelID = "third";
@@ -205,7 +246,7 @@ namespace IM.ViewModels
             item3.FormFactor = "2.5\"";
             item3.Capacity = 1000;
             item3.ChangeType = DBChangeType.NoChange;
-            UI_Inventory.Add(item3);
+            inventory.Add(item3);
 
             InventoryItem item4 = new InventoryItem();
             item4.ModelID = "fourth";
@@ -213,7 +254,9 @@ namespace IM.ViewModels
             item4.FormFactor = "2.5\"";
             item4.Capacity = 2000;
             item4.ChangeType = DBChangeType.NoChange;
-            UI_Inventory.Add(item4);
+            inventory.Add(item4);
+
+            UpdateResults();
         }
 
         public void SetUpdateMessage()
@@ -230,8 +273,8 @@ namespace IM.ViewModels
         }
         private void SetupChangeListeners()
         {
-            UI_Inventory.CollectionChanged += UI_Inventory_CollectionChanged;
-            foreach (InventoryItem sp in UI_Inventory)
+            SearchResults.CollectionChanged += SearchResults_CollectionChanged;
+            foreach (InventoryItem sp in SearchResults)
             {
                 sp.PropertyChanged += Sp_PropertyChanged;
             }
@@ -240,10 +283,10 @@ namespace IM.ViewModels
         // Just here in case it's needed later.
         private void TeardownChangeListeners()
         {
-            if (UI_Inventory != null)
+            if (SearchResults != null)
             {
-                UI_Inventory.CollectionChanged -= UI_Inventory_CollectionChanged;
-                foreach (InventoryItem sp in UI_Inventory)
+                SearchResults.CollectionChanged -= SearchResults_CollectionChanged;
+                foreach (InventoryItem sp in SearchResults)
                 {
                     sp.PropertyChanged -= Sp_PropertyChanged;
                 }
@@ -252,7 +295,7 @@ namespace IM.ViewModels
 
         private bool ChangesAreValid()
         {
-            foreach (InventoryItem sp in UI_Inventory)
+            foreach (InventoryItem sp in SearchResults)
             {
                 if (sp.ChangeType == DBChangeType.Insert || sp.ChangeType == DBChangeType.Update)
                 {
@@ -271,14 +314,14 @@ namespace IM.ViewModels
             if(ChangesAreValid())
             {
                 List<InventoryItem> outgoing = new List<InventoryItem>();
-                foreach(InventoryItem i in UI_Inventory)
+                foreach(InventoryItem i in SearchResults)
                 {
                     if(i.ChangeType == DBChangeType.Insert)
                         outgoing.Add(i);
                 }
                 model.InsertRows(outgoing);
                 outgoing.Clear();
-                foreach(InventoryItem i in UI_Inventory)
+                foreach(InventoryItem i in SearchResults)
                 {
                     if (i.ChangeType == DBChangeType.Update)
                         outgoing.Add(i);
@@ -295,10 +338,10 @@ namespace IM.ViewModels
 
         public void SetSaveRequired()
         {
-            if (UI_Inventory == null)
+            if (SearchResults == null)
                 return;
             bool saveRequired = false;
-            foreach (InventoryItem sp in UI_Inventory)
+            foreach (InventoryItem sp in SearchResults)
             {
                 if (sp.ChangeType != DBChangeType.NoChange)
                 {
@@ -315,7 +358,7 @@ namespace IM.ViewModels
             SetUpdateMessage();
         }
 
-        private void UI_Inventory_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void SearchResults_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             SaveRequired = true;
             SetUpdateMessage();

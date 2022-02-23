@@ -27,7 +27,8 @@
             <Button x:Name="SaveButton" Content="Save" Visibility="{Binding Path=SaveRequired, Converter={StaticResource BoolToVis}}" Grid.Column="1" Width="40" HorizontalAlignment="Right" Margin="5" Command="{Binding SaveChanges}" Click="SaveButton_Click"/>
         </Grid>
         <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0 0 10 0">
-            <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical" IsEnabled="{Binding FilterActive}">
+                <TextBox Margin="5" Text="{Binding SearchCriteria, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextChanged="TextBox_TextChanged"/>
                 <!--FORMFACTOR-->
                 <StackPanel Orientation="Horizontal" Margin="5 5 0 0">
                     <Label Content="Form&#x0a;Factors:" Foreground="#EEEEEE" Margin="5 0 0 0" FontSize="12" Width="70" />
@@ -87,7 +88,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding UI_Inventory}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding SearchResults, Mode=TwoWay}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Brand" Binding="{Binding Brand}"/>
                     <DataGridTextColumn Header="Form Factor" Binding="{Binding FormFactor}"/>

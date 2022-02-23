@@ -55,5 +55,10 @@ namespace IM.Views
         {
             viewModel.CloseConnection();
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            viewModel.UpdateResults();
+        }
     }
 }
