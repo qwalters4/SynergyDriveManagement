@@ -88,7 +88,7 @@
                 </StackPanel>
 
             </StackPanel>
-            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding SearchResults, Mode=TwoWay}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
+            <DataGrid MinWidth="600" Margin="10 5 10 10" ItemsSource="{Binding SearchResults, Mode=Default}" SelectionChanged="DataGrid_SelectionChanged" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Brand" Binding="{Binding Brand}"/>
                     <DataGridTextColumn Header="Form Factor" Binding="{Binding FormFactor}"/>
