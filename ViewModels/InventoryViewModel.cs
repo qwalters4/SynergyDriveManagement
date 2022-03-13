@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using IM.Models;
+using IM.Models; 
 
 namespace IM.ViewModels
 {
@@ -24,6 +24,8 @@ namespace IM.ViewModels
         private string caplowerstring;
         private string capupperstring;
         private bool quantitycheck;
+        private int totalOnScreen;
+        private string filename;
 
         private string updateMessage = "Changes have been made, please save the results.";
         private bool saveRequired;
@@ -133,6 +135,18 @@ namespace IM.ViewModels
             }
         }
 
+        public int TotalOnScreen
+        {
+            get => totalOnScreen;
+            set { totalOnScreen = value; OnPropertyChanged(nameof(TotalOnScreen)); }
+        }
+
+        public string Filename
+        {
+            get => filename;
+            set { filename = value; OnPropertyChanged(nameof(Filename)); }
+        }
+
         public void Load()
         {
             searchcriteria = "";
@@ -152,6 +166,7 @@ namespace IM.ViewModels
 
         internal void UpdateResults()
         {
+            TotalOnScreen = 0;
             SearchResults.Clear();
             if (SearchCriteria == "")
             {
@@ -159,6 +174,7 @@ namespace IM.ViewModels
                 foreach (InventoryItem c in inventory)
                 {
                     SearchResults.Add(c);
+                    TotalOnScreen += c.Quantity;
                 }
                 SaveRequired = false;
                 return;
@@ -166,7 +182,10 @@ namespace IM.ViewModels
             foreach (InventoryItem c in inventory)
             {
                 if (c.ModelID.IndexOf(SearchCriteria, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
                     SearchResults.Add(c);
+                    TotalOnScreen += c.Quantity;
+                }
                 SaveRequired = false;
             }
         }
@@ -257,6 +276,11 @@ namespace IM.ViewModels
             inventory.Add(item4);
 
             UpdateResults();
+        }
+
+        public void exportData()
+        {
+            model.ExportCsv(SearchResults.ToList(), Filename);
         }
 
         public void SetUpdateMessage()

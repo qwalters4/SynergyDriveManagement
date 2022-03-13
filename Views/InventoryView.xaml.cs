@@ -34,6 +34,7 @@ namespace IM.Views
             viewModel.Load();
             viewModel.CapLowerString = "0";
             viewModel.CapUpperString = "20000";
+            dg.ItemsSource = viewModel.SearchResults;
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -59,6 +60,11 @@ namespace IM.Views
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             viewModel.UpdateResults();
+        }
+
+        private void Export_Data(object sender, RoutedEventArgs e)
+        {
+            viewModel.exportData();
         }
     }
 }
