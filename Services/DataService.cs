@@ -25,7 +25,7 @@ namespace IM.Services
         {
             foreach (InventoryItem item in incoming)
             {
-                string Query = "insert into hdd (brand, modelid, connector, formfactor, quantity, capacity ) values('" + item.Brand + "', '" + item.ModelID + "', '" + item.DiskInterface + "', '" + item.FormFactor + "', " + item.Quantity + ", " + item.Capacity +")on conflict on constraint modelidcon do update set";
+                string Query = "insert into devdb (brand, modelid, connector, formfactor, quantity, capacity ) values('" + item.Brand + "', '" + item.ModelID + "', '" + item.DiskInterface + "', '" + item.FormFactor + "', " + item.Quantity + ", " + item.Capacity +")on conflict on constraint modelidcon do update set";
                 Query += " brand = '" + item.Brand + "',connector = '" + item.DiskInterface + "',formfactor = '" + item.FormFactor + "',quantity = " + item.Quantity + ",capacity = " + item.Capacity + ";";
                 NpgsqlCommand insert = new NpgsqlCommand(Query, _connection);
                 insert.ExecuteNonQuery();
@@ -36,7 +36,7 @@ namespace IM.Services
         {
             foreach (InventoryItem incomingItem in incoming)
             {
-                string updatestring = "Update hdd set brand = '" + incomingItem.Brand + "' , modelid = '" + incomingItem.ModelID + "', connector = '" + incomingItem.DiskInterface + "', formfactor = '" + incomingItem.FormFactor + "', quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + " WHERE id = " + incomingItem.UniqueID + ";";
+                string updatestring = "Update devdb set brand = '" + incomingItem.Brand + "' , modelid = '" + incomingItem.ModelID + "', connector = '" + incomingItem.DiskInterface + "', formfactor = '" + incomingItem.FormFactor + "', quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + " WHERE id = " + incomingItem.UniqueID + ";";
                 NpgsqlCommand rowupdate = new NpgsqlCommand(updatestring, _connection);
                 rowupdate.ExecuteNonQuery();
                 updatestring = "";
@@ -45,7 +45,7 @@ namespace IM.Services
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand, int caplower, int capupper, bool quantitycheck)
         {
             //basic format for sql query
-            string query = "select * from (select * from ( select * from(select *from(select * from hdd ) as quant where";
+            string query = "select * from (select * from ( select * from(select *from(select * from devdb ) as quant where";
             List<InventoryItem> list = new List<InventoryItem>();
             InventoryItem item = new InventoryItem();
             //if brand filter is null then skip
@@ -128,7 +128,7 @@ namespace IM.Services
         public ObservableCollection<InventoryItem> Query() 
         {
             //basic format for sql query
-            string query = "SELECT * FROM hdd WHERE quantity != 0;";
+            string query = "SELECT * FROM devdb WHERE quantity != 0;";
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
             InventoryItem item = new InventoryItem();
 
@@ -158,7 +158,7 @@ namespace IM.Services
         {
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
-            string brandquery = "SELECT Distinct brand FROM hdd";
+            string brandquery = "SELECT Distinct brand FROM devdb";
             NpgsqlCommand BrandQuery = new NpgsqlCommand(brandquery, _connection);
             //read results from brandquery and add to brand list
             using (var reader = BrandQuery.ExecuteReader())
@@ -176,7 +176,7 @@ namespace IM.Services
         {
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
-            string formfactorquery = "SELECT Distinct formfactor FROM hdd";
+            string formfactorquery = "SELECT Distinct formfactor FROM devdb";
             NpgsqlCommand FormFactorQuery = new NpgsqlCommand(formfactorquery, _connection);
             //read results from brandquery and add to brand list
             using (var reader = FormFactorQuery.ExecuteReader())
@@ -194,7 +194,7 @@ namespace IM.Services
         {
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
-            string connectorquery = "SELECT Distinct connector FROM hdd";
+            string connectorquery = "SELECT Distinct connector FROM devdb";
             NpgsqlCommand ConnectorQuery = new NpgsqlCommand(connectorquery, _connection);
             //read results from brandquery and add to brand list
             using (var reader = ConnectorQuery.ExecuteReader())
