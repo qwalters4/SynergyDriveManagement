@@ -1,4 +1,5 @@
 ﻿using IM.Common;
+using IM.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,7 @@ namespace IM.ViewModels
 {
     class ReportViewModel : BaseViewModel
     {
+        private ReportModel model;
         private string outputpath;
 
         public string Outputpath { get => outputpath; set => outputpath = value; }
@@ -17,6 +19,12 @@ namespace IM.ViewModels
         public ReportViewModel()
         {
             Outputpath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            model = new ReportModel();
+        }
+
+        public void POReportGen()
+        {
+            model.POReportGenerator();
         }
     }
 }

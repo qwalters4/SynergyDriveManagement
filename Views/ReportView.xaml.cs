@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,16 @@ namespace IM.Views
     /// </summary>
     public partial class ReportView : UserControl
     {
+        private ReportViewModel viewModel { get { return (ReportViewModel)DataContext; } }
+
         public ReportView()
         {
             InitializeComponent();
+        }
+
+        private void OpenReportGen(object sender, RoutedEventArgs e)
+        {
+            viewModel.POReportGen();
         }
     }
 }

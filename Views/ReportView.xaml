@@ -36,6 +36,10 @@
                     <Button Content="PULL" Margin="3" Padding="5 0" Background="SlateGray" Foreground="#EEEEEE"/>
                 </StackPanel>
             </StackPanel>
+            <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal">
+                <Label Content="PO Report Generator" Foreground="#EEEEEE"/>
+                <Button Content="Open Report Generator" Margin="3" Padding="5 0" Background="SlateGray" Foreground="#EEEEEE" Click="OpenReportGen"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>
