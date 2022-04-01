@@ -25,8 +25,8 @@ namespace IM.Services
         {
             foreach (InventoryItem item in incoming)
             {
-                string Query = "insert into hdd (brand, modelid, connector, formfactor, quantity, capacity ) values('" + item.Brand + "', '" + item.ModelID + "', '" + item.DiskInterface + "', '" + item.FormFactor + "', " + item.Quantity + ", " + item.Capacity +")on conflict on constraint modelidcon do update set";
-                Query += " brand = '" + item.Brand + "',connector = '" + item.DiskInterface + "',formfactor = '" + item.FormFactor + "',quantity = " + item.Quantity + ",capacity = " + item.Capacity + ";";
+                string Query = "insert into hdd (brand, modelid, connector, formfactor, quantity, capacity, lastupdatetime ) values('" + item.Brand + "', '" + item.ModelID + "', '" + item.DiskInterface + "', '" + item.FormFactor + "', " + item.Quantity + ", " + item.Capacity + ", " + "localtimestamp" +")on conflict on constraint hdd_un do update set";
+                Query += " brand = '" + item.Brand + "',connector = '" + item.DiskInterface + "',formfactor = '" + item.FormFactor + "',quantity = " + item.Quantity + ",capacity = " + item.Capacity + ", lastupdatetime = localtimestamp;";
                 NpgsqlCommand insert = new NpgsqlCommand(Query, _connection);
                 insert.ExecuteNonQuery();
                 Query = "";
@@ -36,7 +36,7 @@ namespace IM.Services
         {
             foreach (InventoryItem incomingItem in incoming)
             {
-                string updatestring = "Update hdd set brand = '" + incomingItem.Brand + "' , modelid = '" + incomingItem.ModelID + "', connector = '" + incomingItem.DiskInterface + "', formfactor = '" + incomingItem.FormFactor + "', quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + " WHERE id = " + incomingItem.UniqueID + ";";
+                string updatestring = "Update hdd set brand = '" + incomingItem.Brand + "' , modelid = '" + incomingItem.ModelID + "', connector = '" + incomingItem.DiskInterface + "', formfactor = '" + incomingItem.FormFactor + "', quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + ", lastupdatetime = localtimestamp" + " WHERE id = " + incomingItem.UniqueID + ";";
                 NpgsqlCommand rowupdate = new NpgsqlCommand(updatestring, _connection);
                 rowupdate.ExecuteNonQuery();
                 updatestring = "";
