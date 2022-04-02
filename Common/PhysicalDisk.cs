@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace POReportGen
+namespace IM.Common
 {
     /// <summary>
     /// Represents a physical disk.
@@ -218,6 +218,21 @@ namespace POReportGen
             {
                 _deviceInterface = value;
             }
+        }
+
+        public string ToString()
+        {
+            string output = "";
+            output += SerialNumber.ToString() + ",";
+            output += ModelId.ToString() + ",";
+            output += FormFactor.ToString() + ",";
+            output += Size.ToString() + ",";
+            output += HoursOperational.ToString() + ",";
+            output += TotalBadSectors.ToString() + ",";
+            output += HealthScore.ToString() + ",";
+            output += SeaToolsTestPassed.ToString();
+
+            return output;
         }
     }
 }

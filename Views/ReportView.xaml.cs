@@ -32,5 +32,10 @@ namespace IM.Views
         {
             viewModel.POReportGen();
         }
+
+        private void DriveListReport(object sender, RoutedEventArgs e)
+        {
+            viewModel.DriveListReport();
+        }
     }
 }

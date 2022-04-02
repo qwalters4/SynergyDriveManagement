@@ -13,8 +13,10 @@ namespace IM.ViewModels
     {
         private ReportModel model;
         private string outputpath;
+        private string poNumber;
 
         public string Outputpath { get => outputpath; set => outputpath = value; }
+        public string PONumber { get => poNumber; set => poNumber = value; }
 
         public ReportViewModel()
         {
@@ -25,6 +27,16 @@ namespace IM.ViewModels
         public void POReportGen()
         {
             model.POReportGenerator();
+        }
+
+        public void DriveListReport()
+        {
+            if(!Int32.TryParse(PONumber, out var d))
+            {
+                PONumber = "";
+                return;
+            }
+            model.DriveListReport(d, Outputpath);
         }
     }
 }
