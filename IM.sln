@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30413.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IM", "IM.csproj", "{0E378675-0C78-4918-92FA-054F1C108BEB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POReportGen", "..\POReportGen\POReportGen.csproj", "{11FDFFA2-BE97-4540-A2A3-AA3B99D4D82A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{0E378675-0C78-4918-92FA-054F1C108BEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E378675-0C78-4918-92FA-054F1C108BEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E378675-0C78-4918-92FA-054F1C108BEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{11FDFFA2-BE97-4540-A2A3-AA3B99D4D82A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{11FDFFA2-BE97-4540-A2A3-AA3B99D4D82A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{11FDFFA2-BE97-4540-A2A3-AA3B99D4D82A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{11FDFFA2-BE97-4540-A2A3-AA3B99D4D82A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

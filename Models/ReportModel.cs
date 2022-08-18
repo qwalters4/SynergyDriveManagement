@@ -14,7 +14,7 @@ namespace IM.Models
     {
         public void POReportGenerator()
         {
-            System.Diagnostics.Process.Start(Application.StartupPath.ToString() + @"\POReportGen.exe");
+            System.Diagnostics.Process.Start(Application.StartupPath.ToString() + @"\POReportGenerator.exe");
         }
 
         public void DriveListReport(int po, string output)
