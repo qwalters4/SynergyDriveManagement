@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using IM.Common;
 using Npgsql;
 
@@ -16,13 +17,30 @@ namespace IM.Services
         public DataService()
         {
             _connection = new NpgsqlConnection();
-            _connection.ConnectionString = "Host=65.26.61.201;Username=inventory;Password=whygod1234;Database=inventory";
-            _connection.Open();
+             _connection.ConnectionString = "Host=65.26.61.201;Username=inventory;Password=whygod1234;Database=inventory;Timeout=3";
+            try
+            {
+                _connection.Open();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Cannot connect to Database, please contact you local administrator.", "Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
             //65.26.61.201 is the public ip
             //192.168.1.229 is the local ip
         }
+
+        public bool assertConnection()
+        {
+            if (_connection.Host != null)
+                return true;
+            else return false;
+        }
         public void InsertFailsafe(List<InventoryItem> incoming)
         {
+            if (!assertConnection()) return;
+
             foreach (InventoryItem item in incoming)
             {
                 string Query = "insert into hdd (brand, modelid, connector, formfactor, quantity, capacity, lastupdatetime ) values('" + item.Brand + "', '" + item.ModelID + "', '" + item.DiskInterface + "', '" + item.FormFactor + "', " + item.Quantity + ", " + item.Capacity + ", " + "localtimestamp" +")on conflict on constraint hdd_un do update set";
@@ -34,6 +52,8 @@ namespace IM.Services
         }
         public void Update(List<InventoryItem> incoming)
         {
+            if (!assertConnection()) return;
+            
             foreach (InventoryItem incomingItem in incoming)
             {
                 string updatestring = "Update hdd set brand = '" + incomingItem.Brand + "' , modelid = '" + incomingItem.ModelID + "', connector = '" + incomingItem.DiskInterface + "', formfactor = '" + incomingItem.FormFactor + "', quantity = " + incomingItem.Quantity + ", capacity = " + incomingItem.Capacity + ", lastupdatetime = localtimestamp" + " WHERE id = " + incomingItem.UniqueID + ";";
@@ -44,6 +64,8 @@ namespace IM.Services
         }
         public ObservableCollection<InventoryItem> Query(List<string> ff, List<string> conn, List<string> brand, int caplower, int capupper, bool quantitycheck)
         {
+            if (!assertConnection()) return new ObservableCollection<InventoryItem>();
+
             //basic format for sql query
             string query = "select * from (select * from ( select * from(select *from(select * from hdd ) as quant where";
             List<InventoryItem> list = new List<InventoryItem>();
@@ -127,6 +149,8 @@ namespace IM.Services
 
         public ObservableCollection<InventoryItem> Query() 
         {
+            if (!assertConnection()) return new ObservableCollection<InventoryItem>();
+
             //basic format for sql query
             string query = "SELECT * FROM hdd WHERE quantity != 0;";
             ObservableCollection<InventoryItem> list = new ObservableCollection<InventoryItem>();
@@ -156,6 +180,8 @@ namespace IM.Services
         }
         public List<string> BrandQuery()
         {
+            if (!assertConnection()) return new List<string>();
+
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
             string brandquery = "SELECT Distinct brand FROM hdd";
@@ -174,6 +200,8 @@ namespace IM.Services
         }
         public List<string> FormFactorQuery()
         {
+            if (!assertConnection()) return new List<string>();
+
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
             string formfactorquery = "SELECT Distinct formfactor FROM hdd";
@@ -192,6 +220,8 @@ namespace IM.Services
         }
         public List<string> ConnectorQuery()
         {
+            if (!assertConnection()) return new List<string>();
+
             List<string> list = new List<string>();
             //run query to get all brand names to pass to the interface
             string connectorquery = "SELECT Distinct connector FROM hdd";

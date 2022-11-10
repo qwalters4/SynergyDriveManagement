@@ -166,7 +166,7 @@
                     <Button Grid.Column="1" Content="Export to CSV" Click="Export_Data" Margin="5 0 5 10"/>
                     <StackPanel Grid.Column="0" Orientation="Vertical" VerticalAlignment="Top"  Margin="5 0 5 10">
                         <Label Content="Name of file:" VerticalAlignment="Top" HorizontalAlignment="Center" Padding="0 0 0 0" Foreground="#EEEEEE"/>
-                        <TextBox Text="{Binding Filename}" VerticalContentAlignment="Center" Height="20">
+                        <TextBox Text="{Binding Filename}" Height="20">
                             <TextBox.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
